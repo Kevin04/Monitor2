@@ -23,6 +23,7 @@ import sample.Model.access.tablespace.TableSpaceAccess;
 import sample.Model.entities.DBA_Roles;
 import sample.Model.entities.TableSpace;
 import sample.Model.entities.User;
+import sample.Model.entities.User_Privileges_Roles;
 import sample.Model.series.cpu.CpuTimeSeries;
 
 import java.io.FileInputStream;
@@ -52,6 +53,7 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
     @FXML   TableView<TableSpace> tableSpaceTableView;
     @FXML   TableView<User> tableUsersView;
     @FXML   TableView<DBA_Roles> tableDBA_Roles;
+    @FXML   TableView<User_Privileges_Roles> tableUser_Privileges_Roles;
     @FXML
     TableColumn<TableSpace,String> TBC_name;
     @FXML   TableColumn<TableSpace,String> TBC_used;
@@ -75,11 +77,16 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
     @FXML TableColumn<User,String> TBC_PROFILE;
     @FXML TableColumn<User,String> TBC_INICIAL;
     @FXML TableColumn<User,String> TBC_EXTERNAL;
-
+    //--DBA_Roles Columns
     @FXML TableColumn<DBA_Roles,String> Grantee;
     @FXML TableColumn<DBA_Roles,String> GrantedRole;
     @FXML TableColumn<DBA_Roles,String> Admin_Option;
     @FXML TableColumn<DBA_Roles,String> Default_Role;
+    //---
+    //--- User_Privileges_Roles
+    @FXML TableColumn<User_Privileges_Roles,String> TBC_username;
+    @FXML TableColumn<User_Privileges_Roles,String> TBC_privilege;
+    @FXML TableColumn<User_Privileges_Roles,String> TBC_role;
 
 
      @FXML
@@ -240,6 +247,12 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
         DBA_Roles.begin();
         tableDBA_Roles.setItems(FXCollections.observableList(DBA_Roles.dba_roleses));
 //---
+        //USER_PRIVLIEGES_ROLES
+        TBC_username.setCellValueFactory(new PropertyValueFactory("Username"));
+        TBC_privilege.setCellValueFactory(new PropertyValueFactory("Privilege"));
+        TBC_role.setCellValueFactory(new PropertyValueFactory("Privilege"));
+        User_Privileges_Roles.begin();
+        tableUser_Privileges_Roles.setItems(FXCollections.observableList(User_Privileges_Roles.user_privileges));
 
 
     }
@@ -255,6 +268,12 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
     }
     @FXML void frameClose(){
         CpuTimeSeries.getInstance().stopThread();
+        try {
+            User.end();
+            DBA_Roles.end();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         try{TableSpace.end();}catch (Exception e){}
         ex.shutdown();
         lp.shutdownThreads();

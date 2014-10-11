@@ -3,6 +3,7 @@ package sample.Model.access.User;
 import javafx.collections.ObservableList;
 import sample.Model.entities.DBA_Roles;
 import sample.Model.entities.User;
+import sample.Model.entities.User_Privileges_Roles;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by JoséPablo on 11/10/2014.
  */
-public class DBA_Roles_Access {
+public class User_Privileges_Roles_Access {
     public static ObservableList<User> tableSpaces;
 
     private static Connection connection;
@@ -24,7 +25,7 @@ public class DBA_Roles_Access {
     static {
         try {
             connection = ORCConnection.Instance().getOrcConnection();
-            String sql = "select * from dba_role_privs order by grantee";
+            String sql = "select username,privilege,role from role_sys_privs,user_role_privs where granted_role=role order by username";
             pps = connection.prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,22 +33,21 @@ public class DBA_Roles_Access {
     }
     /*select username,privilege,role from role_sys_privs,user_role_privs where granted_role=role;*/
 
-    public static List<DBA_Roles> retrieveTableSpaces() {
-        List<DBA_Roles> table_DBA_Roles = new ArrayList<>();
+    public static List<User_Privileges_Roles> retrieveTableSpaces() {
+        List<User_Privileges_Roles> table_User_Privileges_Roles = new ArrayList<>();
         try {
             if (ORCConnection.Instance().isInitialized()) {
 
                 ResultSet rs = pps.executeQuery();
                 while (rs.next()) {
-                    String grantee = rs.getString(1);
-                    String granted_Role = rs.getString(2);
-                    String account_Option = rs.getString(3);
-                    String default_Role = rs.getString(4);
-                    DBA_Roles tbs = new DBA_Roles(grantee,granted_Role,account_Option,default_Role);
-                    table_DBA_Roles.add(tbs);
+                    String username = rs.getString(1);
+                    String privilege = rs.getString(2);
+                    String role = rs.getString(3);
+                    User_Privileges_Roles tbs = new User_Privileges_Roles(username,privilege,role);
+                    table_User_Privileges_Roles.add(tbs);
                 }
 
-                return table_DBA_Roles;
+                return table_User_Privileges_Roles;
             }
         } catch (SQLException e) {
             e.printStackTrace();
