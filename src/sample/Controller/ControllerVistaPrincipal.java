@@ -20,6 +20,7 @@ import sample.Main;
 import sample.Model.GrowthSpecification.GrowthTableContainer;
 import sample.Model.GrowthSpecification.LimitationProcess;
 import sample.Model.access.tablespace.TableSpaceAccess;
+import sample.Model.entities.DBA_Roles;
 import sample.Model.entities.TableSpace;
 import sample.Model.entities.User;
 import sample.Model.series.cpu.CpuTimeSeries;
@@ -50,6 +51,7 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
     //Table View
     @FXML   TableView<TableSpace> tableSpaceTableView;
     @FXML   TableView<User> tableUsersView;
+    @FXML   TableView<DBA_Roles> tableDBA_Roles;
     @FXML
     TableColumn<TableSpace,String> TBC_name;
     @FXML   TableColumn<TableSpace,String> TBC_used;
@@ -74,6 +76,10 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
     @FXML TableColumn<User,String> TBC_INICIAL;
     @FXML TableColumn<User,String> TBC_EXTERNAL;
 
+    @FXML TableColumn<DBA_Roles,String> Grantee;
+    @FXML TableColumn<DBA_Roles,String> GrantedRole;
+    @FXML TableColumn<DBA_Roles,String> Admin_Option;
+    @FXML TableColumn<DBA_Roles,String> Default_Role;
 
 
      @FXML
@@ -203,20 +209,37 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
          TBC_INICIAL.setCellValueFactory(new PropertyValueFactory("INITIAL_RSRC_CONSUMER_GROUP"));
          TBC_EXTERNAL.setCellValueFactory(new PropertyValueFactory("EXTERNAL_NAME"));
 //---
-        TBC_USERNAME.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_USERID.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_PASSWORD.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_ACCOUNTSTATUS.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_LOCKDATE.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_EXPIRYDATE.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_DEFAULTTABLESPACE.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_TEMPORARYTABLESPACE.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_CREATED.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_PROFILE.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_INICIAL.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
-        TBC_EXTERNAL.prefWidthProperty().bind(tableSpaceTableView.prefWidthProperty().multiply(0.5));
+        TBC_USERNAME.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_USERID.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_PASSWORD.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_ACCOUNTSTATUS.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_LOCKDATE.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_EXPIRYDATE.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_DEFAULTTABLESPACE.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_TEMPORARYTABLESPACE.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_CREATED.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_PROFILE.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_INICIAL.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
+        TBC_EXTERNAL.prefWidthProperty().bind(tableUsersView.prefWidthProperty().multiply(0.5));
         User.begin();
         tableUsersView.setItems(FXCollections.observableList(User.userList));
+
+//--- DBA_Roles
+
+        Grantee.setCellValueFactory(new PropertyValueFactory("Grantee"));
+        GrantedRole.setCellValueFactory(new PropertyValueFactory("GrantedRole"));
+        Admin_Option.setCellValueFactory(new PropertyValueFactory("Admin_Option"));
+        Default_Role.setCellValueFactory(new PropertyValueFactory("Default_Role"));
+
+
+        Grantee.prefWidthProperty().bind(tableDBA_Roles.prefWidthProperty().multiply(0.5));
+        GrantedRole.prefWidthProperty().bind(tableDBA_Roles.prefWidthProperty().multiply(0.5));
+        Admin_Option.prefWidthProperty().bind(tableDBA_Roles.prefWidthProperty().multiply(0.5));
+        Default_Role.prefWidthProperty().bind(tableDBA_Roles.prefWidthProperty().multiply(0.5));
+
+        DBA_Roles.begin();
+        tableDBA_Roles.setItems(FXCollections.observableList(DBA_Roles.dba_roleses));
+//---
 
 
     }

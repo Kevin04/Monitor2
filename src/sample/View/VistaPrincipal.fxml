@@ -118,6 +118,31 @@
                   </GridPane>
                </content>
             </Tab>
+            <Tab text="DBA Roles">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="386.0" minHeight="10.0" prefHeight="386.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TableView fx:id="tableDBA_Roles" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                          <columns>
+                            <TableColumn fx:id="Grantee" prefWidth="75.0" text="Grantee" />
+                            <TableColumn fx:id="GrantedRole" prefWidth="95.0" text="GrantedRole" />
+                              <TableColumn fx:id="Admin_Option" prefWidth="111.0" text="Admin_Option" />
+                              <TableColumn fx:id="Default_Role" prefWidth="100.0" text="Default_Role" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
