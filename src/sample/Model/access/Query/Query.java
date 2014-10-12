@@ -34,23 +34,29 @@ public class Query {
 
     public static void crearRole(String rol) {
         try {
-            String sql = "create role" + "$rol";
-            pps = connection.prepareStatement(sql);
+            StringBuilder sb= new StringBuilder();
+            sb.append("create role ");
+            sb.append(rol);
+            pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
     }
 
-    public static void crearRole(String rol, String pass) {
+    public static void crearRole(String rol, String action) {
         try {
-            String sql = "create role" + "$rol" + "identified by" + "$pass";
-            pps = connection.prepareStatement(sql);
+            StringBuilder sb= new StringBuilder();
+            sb.append("create role ");
+            sb.append(rol);
+            sb.append(" ");
+            sb.append(action);
+            pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
     }
 
@@ -630,4 +636,22 @@ public class Query {
     public static boolean isInitialzed() {
         return initialzed;
     }
+
+
+    public static void grantRoletoRole(String parent,String son) {
+        try {
+            StringBuilder sb= new StringBuilder();
+            sb.append("grant ");
+            sb.append(parent);
+            sb.append(" to ");
+            sb.append(son);
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+    }
 }
+
+
