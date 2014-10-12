@@ -1,4 +1,4 @@
-package sample.Controller;
+package sample;
 
 /**
  * Created by Jose on 13/09/2014.

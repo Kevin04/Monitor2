@@ -9,10 +9,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import org.controlsfx.dialog.Dialogs;
+import sample.ControlledScreen;
 import sample.Main;
 import sample.Model.FileManagement.CryptoException;
 import sample.Model.FileManagement.Encrypth;
 import sample.Model.FileManagement.LoginFile;
+import sample.ScreensController;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.io.*;

@@ -11,13 +11,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sample.ControlledScreen;
 import sample.Model.entities.DBA_Roles;
 import sample.Model.entities.User;
 import sample.Model.entities.User_Privileges_Roles;
+import sample.ScreensController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static java.lang.System.exit;
 

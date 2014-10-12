@@ -1,4 +1,4 @@
-package sample.Controller;
+package sample;
 
 /**
  * Created by Jose on 13/09/2014.
@@ -10,17 +10,35 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
-public class ScreensController  extends AnchorPane {
+public class ScreensController  implements Initializable, ControlledScreen {
     //Holds the screens to be displayed
 
+    @FXML
+    AnchorPane content;
+    ScreensController parentController;
+    @Override
+    public void setScreenParent(ScreensController screenPage) {
+        parentController = screenPage;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
     private HashMap<String, Node> screens = new HashMap<>();
 
     public ScreensController() {
@@ -60,20 +78,21 @@ public class ScreensController  extends AnchorPane {
     // If there isn't any screen being displayed, the new screen is just added to the root.
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) {   //screen loaded
-            final DoubleProperty opacity = opacityProperty();
+            final DoubleProperty opacity = content.opacityProperty();
 
-            if (!getChildren().isEmpty()) {    //if there is more than one screen
+            if (!content.getChildren().isEmpty()) {    //if there is more than one screen
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent t) {
-                                getChildren().remove(0);                    //remove the displayed screen
-                                getChildren().add(0, screens.get(name));     //add the screen
-                                setTopAnchor(getChildren().get(0),0.0);
-                                setLeftAnchor(getChildren().get(0), 0.0);
-                                setBottomAnchor(getChildren().get(0), 0.0);
-                                setRightAnchor(getChildren().get(0), 0.0);
+                                content.getChildren().remove(0);                    //remove the displayed screen
+                                content.getChildren().add(0, screens.get(name));     //add the screen
+                                content.setTopAnchor(content.getChildren().get(0), 0.0);
+                                content.setLeftAnchor(content.getChildren().get(0), 0.0);
+                                content.setBottomAnchor(content.getChildren().get(0), 0.0);
+                                content.setRightAnchor(content.getChildren().get(0), 0.0);
+                                
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -83,12 +102,12 @@ public class ScreensController  extends AnchorPane {
                 fade.play();
 
             } else {
-                setOpacity(0.0);
-                getChildren().add(screens.get(name));       //no one else been displayed, then just show
-                setTopAnchor(getChildren().get(0),0.0);
-                setLeftAnchor(getChildren().get(0),0.0);
-                setBottomAnchor(getChildren().get(0),0.0);
-                setRightAnchor(getChildren().get(0),0.0);
+                content.setOpacity(0.0);
+                content.getChildren().add(screens.get(name));       //no one else been displayed, then just show
+                content.setTopAnchor(content.getChildren().get(0), 0.0);
+                content.setLeftAnchor(content.getChildren().get(0), 0.0);
+                content.setBottomAnchor(content.getChildren().get(0), 0.0);
+                content.setRightAnchor(content.getChildren().get(0), 0.0);
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
@@ -109,5 +128,13 @@ public class ScreensController  extends AnchorPane {
         } else {
             return true;
         }
+    }
+
+    public Scene getScene() {
+        return this.content.getScene();
+    }
+    @FXML void changeTOInfoScreen(){
+        this.loadScreen(Main.screen2ID,Main.screen2File);
+        this.setScreen(Main.screen2ID);
     }
 }

@@ -1,19 +1,24 @@
 package sample.Controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Reflection;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.controlsfx.dialog.Dialogs;
+import sample.ControlledScreen;
 import sample.Main;
 import sample.Model.FileManagement.CryptoException;
 import sample.Model.FileManagement.Encrypth;
 import sample.Model.FileManagement.LoginFile;
+import sample.ScreensController;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.io.*;
@@ -170,13 +175,25 @@ public class ControllerLogin implements Initializable, ControlledScreen {
     private void goToPrincipal(){
         PGI_loading.setVisible(true);
         Runnable r = ()-> {
-            Main.mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
-            if (!myController.setScreen(Main.screen2ID)) {
-                System.out.println("imposible Cargar La Pantalla 2");
-                PGI_loading.setVisible(false);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Main.fxml"));
+                final Parent root = loader.load();
+
+            Platform.runLater( ()->{
+                Stage stage = new Stage();
+                stage.setTitle("Monitor 2");
+                stage.setScene(new Scene(root, 1024,768));
+                stage.show();
+                this.bordePaneLogin.getScene().getWindow().hide();
+            });
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            //hide this current window (if this is whant you want
+            //((Node)(event.getSource())).getScene().getWindow().hide()
+
         };
-        if (checkInitiation()) new Thread(r).start();
+        if (checkInitiation())new Thread(r).start();
         else PGI_loading.setVisible(false);
 
 
