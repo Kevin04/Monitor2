@@ -53,11 +53,29 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        text_info.setVisible(false);
         comboBox.setItems(list);
+        comboBox.setOnAction(e->{
+            if(comboBox.getSelectionModel().getSelectedItem().equals("IDENTIFIED BY")){
+                text_info.setVisible(true);
+                text_info.setPromptText("password");
+            }else if(comboBox.getSelectionModel().getSelectedItem().equals("IDENTIFIED USING")){
+                text_info.setVisible(true);
+                text_info.setPromptText("[ schema. ] package");
+            }
+            else{text_info.setVisible(false);}
+
+        });
         //setRoleList
         ObservableList<String> stringObservableList=FXCollections.observableArrayList();
         DBA_Roles.DBA_Roles.forEach( e->stringObservableList.add(e.getGrantedRole()) );
         roleListView.setItems(stringObservableList);
+        roleListView.setOnMouseClicked(e->{
+            if(e.getClickCount()==2){
+                lb_Selected.setText(roleListView.getSelectionModel().getSelectedItem().toString());
+            }
+
+        });
         //--
 
         //setlistViewObjects

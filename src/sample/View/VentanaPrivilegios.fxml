@@ -74,10 +74,8 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="okBtn" mnemonicParsing="false" onAction="#handleOk" prefWidth="90.0" text="Ok" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="15" />
-            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#handleCancel" prefWidth="90.0" text="Cancel" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="15" />
             <Label text="Role Selected:" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label fx:id="lb_Selected" text="---" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <Label fx:id="lb_Selected" text="---" GridPane.columnIndex="7" GridPane.columnSpan="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </GridPane.margin>
