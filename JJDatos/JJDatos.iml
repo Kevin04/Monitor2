@@ -7,11 +7,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="controlsfx-8.0.6_20" level="project" />
-    <orderEntry type="library" exported="" name="ojdbc7" level="project" />
-    <orderEntry type="library" exported="" name="commons-dbcp2-2.0.1" level="project" />
-    <orderEntry type="library" exported="" name="commons-logging-1.2" level="project" />
-    <orderEntry type="library" exported="" name="commons-pool2-2.2" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../SoloJars" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../../SoloJars" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

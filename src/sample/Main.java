@@ -14,6 +14,8 @@ public class Main extends Application {
     public static String screen2File = "./View/VistaPrincipal.fxml";
     public static String autoLogin="autoLogin";
     public static String autoLoginFile="./View/AutoLogin.fxml";
+    public static String RoleNPrivileges="rolesNprivileges";
+    public static String RoleNPrivilegesFile="./View/VentanaPrivilegios.fxml";
     public static ScreensController mainContainer;
     public static final String keyEncrypth="Mary has one ca1";
 
@@ -21,6 +23,7 @@ public class Main extends Application {
     public static String appWindow = "appWindow";
     public static String creteUserWindow = "createUserWindow";
     public static String getCreteUserWindowFile = "./View/CreateUser.fxml";
+
 
 
     @Override
@@ -42,7 +45,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    //TODO Abrir hilo para ver si exite información para pedir el tamaño del TableSpace
-    //TODO Poner hora de corte
+
 
 }

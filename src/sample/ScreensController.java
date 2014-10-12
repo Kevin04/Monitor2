@@ -144,6 +144,10 @@ public class ScreensController  implements Initializable, ControlledScreen {
         this.loadScreen(Main.creteUserWindow,Main.getCreteUserWindowFile);
         this.setScreen(Main.creteUserWindow);
     }
+    @FXML void changeTORoleNPrivilege(){
+        this.loadScreen(Main.RoleNPrivileges,Main.RoleNPrivilegesFile);
+        this.setScreen(Main.RoleNPrivileges);
+    }
     @FXML void close(){
         try {
             User.end();
