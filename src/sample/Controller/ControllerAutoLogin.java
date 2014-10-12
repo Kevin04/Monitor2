@@ -8,19 +8,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import org.controlsfx.dialog.Dialogs;
 import sample.Main;
 import sample.Model.FileManagement.CryptoException;
 import sample.Model.FileManagement.Encrypth;
 import sample.Model.FileManagement.LoginFile;
-import sample.Model.series.cpu.CpuTimeSeries;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static java.lang.System.exit;
@@ -178,7 +174,7 @@ public class ControllerAutoLogin implements Initializable, ControlledScreen {
     }
 
     @FXML void frameClose(){
-        CpuTimeSeries.getInstance().stopThread();
+
     }
 
 

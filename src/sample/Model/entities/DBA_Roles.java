@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Model.access.User.DBA_Roles_Access;
-import sample.Model.access.User.UserAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +16,18 @@ import java.util.concurrent.TimeUnit;
  * Created by JoséPablo on 11/10/2014.
  */
 public class DBA_Roles {
+    //TODO CAMBIAR TODO ESTO DONDE VA
+    static boolean stop = false;
+    public static List<DBA_Roles> DBA_Roles = new ArrayList<>();
+    static ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+    static Runnable rolesRetriever;
 
+
+    ObservableList Roles = FXCollections.observableList(new ArrayList<>());
     StringProperty Grantee = new SimpleStringProperty();
-    StringProperty GrantedRole=new SimpleStringProperty();
-    StringProperty Admin_Option=new SimpleStringProperty();
-    StringProperty Default_Role=new SimpleStringProperty();
+    StringProperty GrantedRole = new SimpleStringProperty();
+    StringProperty Admin_Option = new SimpleStringProperty();
+    StringProperty Default_Role = new SimpleStringProperty();
 
     public DBA_Roles() {
     }
@@ -34,24 +40,21 @@ public class DBA_Roles {
     }
 
     //..
-    static boolean stop = false;
-    public static List<DBA_Roles> dba_roleses = new ArrayList<>();
-    static ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
-    static Runnable tableSpacesRetriever;
 
-    public static void begin(){
-        dba_roleses = DBA_Roles_Access.retrieveTableSpaces();
-        tableSpacesRetriever = ()->{
+
+    public static void begin() {
+        DBA_Roles = DBA_Roles_Access.retrieveRoles();
+        rolesRetriever = () -> {
             try {
                 if (stop) return;
-                List<DBA_Roles> l = DBA_Roles_Access.retrieveTableSpaces();
-                dba_roleses.clear();
-                dba_roleses.addAll(l);
-            }catch (Exception e){ e.printStackTrace();}
-
+                List<DBA_Roles> l = DBA_Roles_Access.retrieveRoles();
+                DBA_Roles.clear();
+                DBA_Roles.addAll(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         };
-        executor.scheduleAtFixedRate(tableSpacesRetriever,5,5, TimeUnit.MINUTES);
-
+        executor.scheduleAtFixedRate(rolesRetriever, 5, 5, TimeUnit.MINUTES);
     }
 
     public static void end() throws InterruptedException {
@@ -60,17 +63,13 @@ public class DBA_Roles {
         executor.shutdown();
     }
 
-    public ObservableList getTables() {
-        return tables;
+    public ObservableList getRoles() {
+        return Roles;
     }
 
-    public void setTables(ObservableList tables) {
-        this.tables = tables;
+    public void setRoles(ObservableList roles) {
+        this.Roles = roles;
     }
-
-    ObservableList tables = FXCollections.observableList(new ArrayList<>());
-
-
     //---------------------
 
     public String getGrantee() {

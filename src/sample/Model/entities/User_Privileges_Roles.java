@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Model.access.User.DBA_Roles_Access;
 import sample.Model.access.User.User_Privileges_Roles_Access;
 
 import java.util.ArrayList;
@@ -38,11 +37,11 @@ public class User_Privileges_Roles {
     static Runnable tableSpacesRetriever;
 
     public static void begin(){
-        user_privileges = User_Privileges_Roles_Access.retrieveTableSpaces();
+        user_privileges = User_Privileges_Roles_Access.retrieveUserPrivilegesRoles();
         tableSpacesRetriever = ()->{
             try {
                 if (stop) return;
-                List<User_Privileges_Roles> l = User_Privileges_Roles_Access.retrieveTableSpaces();
+                List<User_Privileges_Roles> l = User_Privileges_Roles_Access.retrieveUserPrivilegesRoles();
                 user_privileges.clear();
                 user_privileges.addAll(l);
             }catch (Exception e){ e.printStackTrace();}

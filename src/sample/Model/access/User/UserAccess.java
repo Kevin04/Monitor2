@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class UserAccess {
 
-    public static ObservableList<User> tableSpaces;
+    public static ObservableList<User> Users;
 
     private static Connection connection;
     private static PreparedStatement pps;
@@ -33,7 +33,7 @@ public class UserAccess {
         }
     }
 
-    public static List<User> retrieveTableSpaces() {
+    public static List<User> retrieveUsers() {
         List<User> tableUser = new ArrayList<>();
         try {
             if (ORCConnection.Instance().isInitialized()) {

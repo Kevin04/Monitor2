@@ -17,7 +17,6 @@ import java.util.List;
  * Created by JoséPablo on 11/10/2014.
  */
 public class User_Privileges_Roles_Access {
-    public static ObservableList<User> tableSpaces;
 
     private static Connection connection;
     private static PreparedStatement pps;
@@ -33,7 +32,7 @@ public class User_Privileges_Roles_Access {
     }
     /*select username,privilege,role from role_sys_privs,user_role_privs where granted_role=role;*/
 
-    public static List<User_Privileges_Roles> retrieveTableSpaces() {
+    public static List<User_Privileges_Roles> retrieveUserPrivilegesRoles() {
         List<User_Privileges_Roles> table_User_Privileges_Roles = new ArrayList<>();
         try {
             if (ORCConnection.Instance().isInitialized()) {

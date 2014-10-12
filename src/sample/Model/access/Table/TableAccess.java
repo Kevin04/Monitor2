@@ -28,7 +28,7 @@ public class TableAccess {
     protected TableAccess(){
         try {
             connection = ORCConnection.Instance().getOrcConnection();
-            String sql = "select dbs.segment_name,dbs.bytes/1024/1024 MB, allt.TBS from dba_segments dbs,(SELECT TABLE_NAME \"TN\",TABLESPACE_NAME \"TBS\" FROM ALL_TABLES) allt where segment_type='TABLE' and segment_name=allt.TN AND allt.TBS=?";
+            String sql = "SELECT TABLE_NAME,TABLESPACE_NAME,OWNER FROM DBA_TABLES WHERE TABLESPACE_NAME = ?";
             pps=connection.prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,17 +38,14 @@ public class TableAccess {
 
         List<Table> tables = new ArrayList<>();
         try {
-
             if(!ORCConnection.Instance().isInitialized()) return tables;
-
             pps.setString(1,TBS_name);
             ResultSet rs = pps.executeQuery();
             while (rs.next()){
-                String tableName = rs.getString(1);
-                float size = rs.getBigDecimal(2).floatValue();
-                String tbs_name = rs.getString(3);
-                Table tmp = new Table(tableName,size,tbs_name);
-                tables.add(tmp);
+                String t_name = rs.getString(1);
+                String t_owner = rs.getString(2);
+                String tb_name = rs.getString(3);
+                tables.add(new Table(t_name,t_owner,tb_name));
             }
             return tables;
         } catch (SQLException e) {
@@ -56,13 +53,14 @@ public class TableAccess {
         }
         return tables;
     }
-    public List<Table> retrieveForTableSpace(TableSpace TBS_name){
+    public List<Table> retrieveForTableSpace(TableSpace TBS_name)
+    {
         return retrieveForTableSpace(TBS_name.getName());
     }
     public Map<TableSpace,List<Table>> retriveAllTables(){
         Map<TableSpace,List<Table>> allTables = new HashMap<>();
         List<TableSpace> tableSpaces = TableSpaceAccess.retrieveTableSpaces();
-        tableSpaces.parallelStream().forEach(t->allTables.put(t,retrieveForTableSpace(t)));
+        tableSpaces.stream().forEach(t->allTables.put(t,retrieveForTableSpace(t)));
         return allTables;
     }
 }

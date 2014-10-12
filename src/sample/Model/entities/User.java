@@ -7,7 +7,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Model.access.User.UserAccess;
-import sample.Model.access.tablespace.TableSpaceAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +32,18 @@ public class User {
     StringProperty EXTERNAL_NAME= new SimpleStringProperty();
 
 
-    //..
+    //TODO MOVER TODO ESTO DONDE VA
     static boolean stop = false;
     public static List<User> userList = new ArrayList<>();
     static ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
     static Runnable tableSpacesRetriever;
 
     public static void begin(){
-        userList = UserAccess.retrieveTableSpaces();
+        userList = UserAccess.retrieveUsers();
         tableSpacesRetriever = ()->{
             try {
                 if (stop) return;
-                List<User> l = UserAccess.retrieveTableSpaces();
+                List<User> l = UserAccess.retrieveUsers();
                 userList.clear();
                 userList.addAll(l);
             }catch (Exception e){ e.printStackTrace();}
@@ -53,22 +52,21 @@ public class User {
         executor.scheduleAtFixedRate(tableSpacesRetriever,5,5, TimeUnit.MINUTES);
 
     }
-
     public static void end() throws InterruptedException {
         stop = true;
         executor.awaitTermination(100, TimeUnit.MILLISECONDS);
         executor.shutdown();
     }
 
-    public ObservableList getTables() {
-        return tables;
+    public ObservableList getUsers() {
+        return users;
     }
 
-    public void setTables(ObservableList tables) {
-        this.tables = tables;
+    public void setUsers(ObservableList users) {
+        this.users = users;
     }
 
-    ObservableList tables = FXCollections.observableList(new ArrayList<>());
+    ObservableList<User> users = FXCollections.observableList(new ArrayList<>());
 
     //---------------------
 
