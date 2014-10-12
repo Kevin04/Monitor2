@@ -19,7 +19,8 @@ public class Main extends Application {
 
     public static String appWindowFile = "./View/Main.fxml";
     public static String appWindow = "appWindow";
-
+    public static String creteUserWindow = "createUserWindow";
+    public static String getCreteUserWindowFile = "./View/CreateUser.fxml";
 
 
     @Override
@@ -34,6 +35,7 @@ public class Main extends Application {
         primaryStage.setMinWidth(900);
         primaryStage.setMinHeight(450);
         primaryStage.show();
+
     }
 
 

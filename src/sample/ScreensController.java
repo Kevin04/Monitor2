@@ -7,6 +7,7 @@ package sample;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -139,12 +140,18 @@ public class ScreensController  implements Initializable, ControlledScreen {
         this.loadScreen(Main.screen2ID,Main.screen2File);
         this.setScreen(Main.screen2ID);
     }
-    @FXML public void close(){
+    @FXML void createUserWindow(){
+        this.loadScreen(Main.creteUserWindow,Main.getCreteUserWindowFile);
+        this.setScreen(Main.creteUserWindow);
+    }
+    @FXML void close(){
         try {
             User.end();
             DBA_Roles.end();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Platform.exit();
+        System.exit(0);
     }
 }

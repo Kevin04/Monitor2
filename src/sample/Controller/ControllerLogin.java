@@ -185,6 +185,10 @@ public class ControllerLogin implements Initializable, ControlledScreen {
                 stage.setScene(new Scene(root, 1024,768));
                 stage.show();
                 this.bordePaneLogin.getScene().getWindow().hide();
+
+               // Stage stage2 = (Stage) bordePaneLogin.getScene().getWindow();
+               // stage.close();
+
             });
             } catch (IOException e) {
                 e.printStackTrace();
