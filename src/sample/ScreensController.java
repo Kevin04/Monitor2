@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import sample.Model.entities.DBA_Roles;
+import sample.Model.entities.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -92,7 +94,7 @@ public class ScreensController  implements Initializable, ControlledScreen {
                                 content.setLeftAnchor(content.getChildren().get(0), 0.0);
                                 content.setBottomAnchor(content.getChildren().get(0), 0.0);
                                 content.setRightAnchor(content.getChildren().get(0), 0.0);
-                                
+
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -136,5 +138,13 @@ public class ScreensController  implements Initializable, ControlledScreen {
     @FXML void changeTOInfoScreen(){
         this.loadScreen(Main.screen2ID,Main.screen2File);
         this.setScreen(Main.screen2ID);
+    }
+    @FXML public void close(){
+        try {
+            User.end();
+            DBA_Roles.end();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
