@@ -32,7 +32,9 @@ public class UserAccess {
             e.printStackTrace();
         }
     }
-
+    public static User getByName(String name){
+        return retrieveUsers().stream().filter(u->u.getUSERNAME().equals(name)).findFirst().get();
+    }
     public static List<User> retrieveUsers() {
         List<User> tableUser = new ArrayList<>();
         try {

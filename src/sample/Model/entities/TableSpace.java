@@ -49,4 +49,8 @@ public class TableSpace {
     public void setStatus(String status) {
         this.status.set(status);
     }
+    @Override
+    public String toString(){
+        return this.getName();
+    }
 }

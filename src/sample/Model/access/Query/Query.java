@@ -1,5 +1,7 @@
 package sample.Model.access.Query;
 
+import sample.Model.entities.Privilege;
+import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.sql.*;
@@ -21,15 +23,16 @@ public class Query {
 
 
 
-    public static void crearUsuario(String user, String pass, String tspace) {
+    public static boolean crearUsuario(String user, String pass, String tspace,String tmptbs, String quota) {
         try {
-            String sql = "create user" + "$user" + "identified by" + "$pass" + "default tablespace" + "$tspace" + "quota on" + "$user";
+            String sql = "create user " + user + " identified by " + pass + " default tablespace " + tspace + " quota " + quota +" ON "+ tspace+ " TEMPORARY TABLESPACE "+ tmptbs;
             pps = connection.prepareStatement(sql);
-            pps.executeUpdate();
-            connection.commit();
+            int i = pps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public static void crearRole(String rol) {
@@ -37,9 +40,20 @@ public class Query {
             String sql = "create role" + "$rol";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public static boolean priviletoUser(Privilege p, User u){
+        String sql = p.ToUserQuery(u);
+       try{
+            pps = connection.prepareStatement(sql);
+            pps.executeUpdate();
+           return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+           return false;
         }
     }
 
@@ -48,7 +62,7 @@ public class Query {
             String sql = "create role" + "$rol" + "identified by" + "$pass";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,7 +73,7 @@ public class Query {
             String sql = "grant ALL PRIVILEGES to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,7 +84,7 @@ public class Query {
             String sql = "grant CREATE SESSION to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +95,7 @@ public class Query {
             String sql = "grant CONNECT to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +106,7 @@ public class Query {
             String sql = "grant SELECT to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,7 +117,7 @@ public class Query {
             String sql = "grant INSERT to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,7 +128,7 @@ public class Query {
             String sql = "grant Drop to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -125,7 +139,7 @@ public class Query {
             String sql = "grant CREATE USER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,7 +150,7 @@ public class Query {
             String sql = "grant CREATE ROLE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -147,7 +161,7 @@ public class Query {
             String sql = "grant CREATE ANY TABLE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -158,7 +172,7 @@ public class Query {
             String sql = "grant DELETE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,7 +183,7 @@ public class Query {
             String sql = "grant UPDATE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,7 +194,7 @@ public class Query {
             String sql = "grant RESOURCE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -191,7 +205,7 @@ public class Query {
             String sql = "grant DROP USER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -202,7 +216,7 @@ public class Query {
             String sql = "grant DROP ROLE to" + "$rol";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -213,7 +227,7 @@ public class Query {
             String sql = "grant" + "$rol" + "to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -224,7 +238,7 @@ public class Query {
             String sql = "grant CREATE VIEW to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -235,7 +249,7 @@ public class Query {
             String sql = "grant EXECUTE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -246,7 +260,7 @@ public class Query {
             String sql = "grant INDEX to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -257,7 +271,7 @@ public class Query {
             String sql = "grant SHOW DATABASES to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -268,7 +282,7 @@ public class Query {
             String sql = "grant SHOW VIEW to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -279,7 +293,7 @@ public class Query {
             String sql = "grant TRIGGER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -290,7 +304,7 @@ public class Query {
             String sql = "grant ALTER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -301,7 +315,7 @@ public class Query {
             String sql = "grant CREATE TEMPORARY TABLES to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -312,7 +326,7 @@ public class Query {
             String sql = "grant ALTER ROUTINE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -323,7 +337,7 @@ public class Query {
             String sql = "grant CREATE ROUTINE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -334,7 +348,7 @@ public class Query {
             String sql = "grant FILE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -346,7 +360,7 @@ public class Query {
             String sql = "revoke" + "$rol" + "from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -357,7 +371,7 @@ public class Query {
             String sql = "revoke CONNECT from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -368,7 +382,7 @@ public class Query {
             String sql = "revoke SELECT from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -379,7 +393,7 @@ public class Query {
             String sql = "revoke INSERT from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -390,7 +404,7 @@ public class Query {
             String sql = "revoke Drop from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -401,7 +415,7 @@ public class Query {
             String sql = "revoke CREATE USER from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -412,7 +426,7 @@ public class Query {
             String sql = "revoke CREATE ROLE from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -423,7 +437,7 @@ public class Query {
             String sql = "revoke CREATE ANY TABLE from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -434,7 +448,7 @@ public class Query {
             String sql = "revoke DELETE from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -445,7 +459,7 @@ public class Query {
             String sql = "revoke UPDATE from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -456,7 +470,7 @@ public class Query {
             String sql = "revoke RESOURCE from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -467,7 +481,7 @@ public class Query {
             String sql = "revoke DROP USER from" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -478,7 +492,7 @@ public class Query {
             String sql = "revoke DROP ROLE from" + "$rol";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -489,7 +503,7 @@ public class Query {
             String sql = "revoke CREATE SESSION from" + "$rol";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -500,7 +514,7 @@ public class Query {
             String sql = "revoke ALL PRIVILEGES from" + "$rol";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -511,7 +525,7 @@ public class Query {
             String sql = "revoke CREATE VIEW to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -522,7 +536,7 @@ public class Query {
             String sql = "revoke EXECUTE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -533,7 +547,7 @@ public class Query {
             String sql = "revoke INDEX to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -544,7 +558,7 @@ public class Query {
             String sql = "revoke SHOW DATABASES to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -555,7 +569,7 @@ public class Query {
             String sql = "revoke SHOW VIEW to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -566,7 +580,7 @@ public class Query {
             String sql = "revoke TRIGGER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -577,7 +591,7 @@ public class Query {
             String sql = "revoke ALTER to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -588,7 +602,7 @@ public class Query {
             String sql = "revoke CREATE TEMPORARY TABLES to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -599,7 +613,7 @@ public class Query {
             String sql = "revoke ALTER ROUTINE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -610,7 +624,7 @@ public class Query {
             String sql = "revoke CREATE ROUTINE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -621,7 +635,7 @@ public class Query {
             String sql = "revoke FILE to" + "$user";
             pps = connection.prepareStatement(sql);
             pps.executeUpdate();
-            connection.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

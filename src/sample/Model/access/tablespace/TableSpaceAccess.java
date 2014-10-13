@@ -11,6 +11,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Casa on 14/09/2014.
@@ -50,5 +52,8 @@ public class TableSpaceAccess {
             e.printStackTrace();
         }
         return null;
+    }
+    public static List<TableSpace> tempList(){
+        return retrieveTableSpaces().stream().filter((t)->t.IsTemporary()).collect(Collectors.toList());
     }
 }

@@ -73,7 +73,7 @@
                                         <Label layoutX="13.0" layoutY="3.0" text="Crear" />
                                     </children>
                                 </Pane>
-                                <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="245.0" text="Usuario" textAlignment="CENTER" />
+                                <Button mnemonicParsing="false" onAction="#createUserWindow" prefHeight="48.0" prefWidth="245.0" text="Usuario" textAlignment="CENTER" />
                                 <Button mnemonicParsing="false" onAction="#changeTORoleNPrivilege" prefHeight="49.0" prefWidth="242.0" text="Rol" textAlignment="CENTER" />
                                 <Pane prefHeight="26.0" prefWidth="164.0" styleClass="divisionPane">
                                     <children>

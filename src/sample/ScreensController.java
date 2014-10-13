@@ -41,11 +41,13 @@ public class ScreensController  implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
     private HashMap<String, Node> screens = new HashMap<>();
 
     public ScreensController() {
         super();
+
     }
 
     //Add the screen to the collection
@@ -80,6 +82,7 @@ public class ScreensController  implements Initializable, ControlledScreen {
     //one screen the new screen is been added second, and then the current screen is removed.
     // If there isn't any screen being displayed, the new screen is just added to the root.
     public boolean setScreen(final String name) {
+        content.getScene().getWindow().setOnCloseRequest((e)->{this.close();});
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = content.opacityProperty();
 
