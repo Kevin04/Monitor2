@@ -6,9 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Object privileges to roles">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Controller/ControllerRolesAndPrivileges.java" afterPath="$PROJECT_DIR$/src/sample/Controller/ControllerRolesAndPrivileges.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Model/access/Query/Query.java" afterPath="$PROJECT_DIR$/src/sample/Model/access/Query/Query.java" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml" afterPath="$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -88,14 +87,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Query.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Query.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Model/access/Query/Query.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14095744" vertical-offset="1341" max-vertical-offset="12257">
-              <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
+            <state vertical-scroll-proportion="-1.8928572" vertical-offset="1341" max-vertical-offset="12257">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VentanaPrivilegios.fxml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/View/VentanaPrivilegios.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1823" max-vertical-offset="2227">
+              <caret line="113" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewModifyPrivileges.fxml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.9107612" vertical-offset="1778" max-vertical-offset="2227">
+              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -193,12 +212,12 @@
         <option value="$PROJECT_DIR$/src/sample/Controller/AppWindowController.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller/ControllerVistaPrincipal.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller/ControllerModifyRolesAndPrivileges.java" />
-        <option value="$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml" />
         <option value="$PROJECT_DIR$/src/sample/View/CSS/Main.css" />
         <option value="$PROJECT_DIR$/src/sample/Controller/CreateUser.java" />
         <option value="$PROJECT_DIR$/src/FileMonitor/login.ser" />
         <option value="$PROJECT_DIR$/src/sample/Controller/ControllerRolesAndPrivileges.java" />
         <option value="$PROJECT_DIR$/src/sample/Model/access/Query/Query.java" />
+        <option value="$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml" />
       </list>
     </option>
   </component>
@@ -944,7 +963,11 @@
       <created>1413207750322</created>
       <updated>1413207750322</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="all privileges on view privileges and roles are finished">
+      <created>1413210203932</created>
+      <updated>1413210203932</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1074,7 +1097,8 @@
     <MESSAGE value="create roles&#10;and assign role to role" />
     <MESSAGE value="minimal changes screens and css" />
     <MESSAGE value="Object privileges to roles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Object privileges to roles" />
+    <MESSAGE value="all privileges on view privileges and roles are finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="all privileges on view privileges and roles are finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1403,22 +1427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9448819" vertical-offset="1697" max-vertical-offset="2159">
-          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/View/VentanaPrivilegios.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.3543305" vertical-offset="0" max-vertical-offset="2159">
-          <caret line="120" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller/ControllerLogin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.816273" vertical-offset="3597" max-vertical-offset="4743">
@@ -1480,11 +1488,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Model/access/Query/Query.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14095744" vertical-offset="1341" max-vertical-offset="12257">
-          <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
+        <state vertical-scroll-proportion="-1.8928572" vertical-offset="1341" max-vertical-offset="12257">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/View/VentanaPrivilegios.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1823" max-vertical-offset="2227">
+          <caret line="113" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/View/ViewModifyPrivileges.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9107612" vertical-offset="1778" max-vertical-offset="2227">
+          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
