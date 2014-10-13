@@ -136,10 +136,12 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
         try {
             User.end();
             DBA_Roles.end();
+            User_Privileges_Roles.end();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-       // ex.shutdown();
+        // ex.shutdown();
     }
 
 }
