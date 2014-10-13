@@ -673,7 +673,6 @@ public class Query {
             sb.append(son);
             pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
             System.out.println(e.toString());
         }

@@ -5,10 +5,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@CSS/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerRolesAndPrivileges">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerRolesAndPrivileges">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,7 +75,7 @@
                     </GridPane.margin>
                 </TextField>
                 <Label text="Role Selected:" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                <Label fx:id="lb_Selected" text="---" GridPane.columnIndex="7" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                <Label fx:id="lb_Selected" text="---" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                     </GridPane.margin>
@@ -105,20 +107,14 @@
                 </Label>
                 <Label text="Privilege hierarchy:" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="8" />
                 <Label text="System privileges:" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-                <Button mnemonicParsing="false" onAction="#handleAssignPrivilege" text="Assign Privilege" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="15" />
+                <Button mnemonicParsing="false" onAction="#handleAssignPrivilege" text="Assign Privilege" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="9" />
                 <Button mnemonicParsing="false" onAction="#handleCreateRole" text="Create Role" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label fx:id="lbObjectPrivileges" text="ON" GridPane.rowIndex="15">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="textObject" promptText="--table--" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="15">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-               <padding>
-                  <Insets top="5.0" />
-               </padding></TextField>
+                <Label fx:id="lbObjectPrivileges" text="ON" GridPane.rowIndex="15">
+                    <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="textObject" promptText="--table--" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="15" />
             </children>
         </GridPane>
     </center>

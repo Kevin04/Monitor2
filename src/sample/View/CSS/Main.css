@@ -211,3 +211,14 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 .divisionPane .label{
     -fx-text-fill: black;
 }
+
+.borderPane{
+    -fx-background-color: black;
+}
+.borderPane .gridPane{
+    -fx-background-color: black;
+    -fx-border: 2px solid; -fx-border-color: red;
+}
+.root{
+-fx-background-color: black;
+}

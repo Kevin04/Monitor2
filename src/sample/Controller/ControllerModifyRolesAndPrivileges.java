@@ -21,21 +21,26 @@ import static java.lang.System.exit;
 /**
  * Created by JoséPablo on 12/10/2014.
  */
-public class ControllerRolesAndPrivileges implements Initializable, ControlledScreen {
+public class ControllerModifyRolesAndPrivileges implements Initializable, ControlledScreen {
     ScreensController myController;
-    @FXML TextField role_Name;
-    @FXML ComboBox<String> comboBox;
+    @FXML
+    TextField role_Name;
+    @FXML
+    ComboBox<String> comboBox;
     @FXML TextField text_info;
-    @FXML ListView roleListView;
-    @FXML Label lb_Selected;
+    @FXML
+    ListView roleListView;
+    @FXML
+    Label lb_Selected;
     @FXML ListView listViewObjects;
     @FXML ListView listViewHierarchy;
     @FXML ListView listViewSystem;
     @FXML Label errMsg;
     @FXML Label lbObjectPrivileges;
     @FXML TextField textObject;
-    ObservableList<String> list= FXCollections.observableArrayList("NOT IDENTIFIED", "IDENTIFIED BY","IDENTIFIED USING",
-            "IDENTIFIED EXTERNALLY","IDENTIFIED GLOBALLY");
+
+    ObservableList<String> list= FXCollections.observableArrayList("NOT IDENTIFIED", "IDENTIFIED BY", "IDENTIFIED USING",
+            "IDENTIFIED EXTERNALLY", "IDENTIFIED GLOBALLY");
 
     @FXML
     private void handleAssignPrivilege(){
@@ -47,7 +52,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
             if(role_Name.getText().matches("^[a-zA-Z0-9]*$")){
                 if(roleListView.getSelectionModel().getSelectedItem()!=null){
                     Query.grantRoletoRole(roleListView.getSelectionModel().getSelectedItem().toString()
-                            ,role_Name.getText());
+                            , role_Name.getText());
                     errMsg.setText("Role assigned.");
                 }else{
                     errMsg.setText("You must have to choose one role to assign.");
@@ -96,8 +101,6 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lbObjectPrivileges.setVisible(false);
-        textObject.setVisible(false);
         try {
             DBA_Roles.begin();
             Query.InitializeQueryExecutor();
@@ -160,14 +163,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         listViewSystem.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //--
 
-        listViewObjects.setOnMouseClicked(e-> {
-            lbObjectPrivileges.setVisible(true);
-            textObject.setVisible(true);
-        });
-
-
     }
-
     @FXML void frameClose(){
         try {
             User.end();
@@ -179,8 +175,8 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         }
         // ex.shutdown();
     }
-
-    @FXML public void handleExit(){
+    @FXML
+    public void handleExit(){
         frameClose();
         exit(0);
     }
