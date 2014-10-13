@@ -43,6 +43,8 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         if(!role_Name.getText().isEmpty()){
             if(role_Name.getText().matches("^[a-zA-Z0-9]*$")){
                 if(listViewObjects.getSelectionModel().getSelectedItems()!=null){
+                    boolean bandera1=true,bandera2=true,bandera3=true;
+
                     if(textObject.getText()!=null&&textObject.getText().matches("^[a-zA-Z0-9]*$")&&
                             !textObject.getText().isEmpty()){
 
@@ -60,7 +62,43 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
                         errMsg.setText(Query.privilegeObjectToRole(role_Name.getText(),stringPrivileges.toString(),
                                 textObject.getText()));
                     }else{
-                        errMsg.setText("You must have to choose one table to assign the Object privileges.");
+                        bandera1=false;
+                    }
+
+                    if(listViewHierarchy.getSelectionModel().getSelectedItems().size()>0){
+                        ObservableList<String> privileges= listViewHierarchy.getSelectionModel().getSelectedItems();
+                        StringBuilder stringPrivileges= new StringBuilder();
+
+                        privileges.forEach(e->{
+
+                            stringPrivileges.append(e.toString());
+                            stringPrivileges.append(",");
+
+                        });
+                        stringPrivileges.deleteCharAt(stringPrivileges.length()-1);
+
+                        errMsg.setText(Query.privilegeObjectToRole(role_Name.getText(),stringPrivileges.toString()));
+                    }else{
+                        bandera2=false;
+                    }
+
+                    if(listViewSystem.getSelectionModel().getSelectedItems().size()>0){
+
+                        ObservableList<String> privileges= listViewSystem.getSelectionModel().getSelectedItems();
+                        StringBuilder stringPrivileges= new StringBuilder();
+
+                        privileges.forEach(e->{
+
+                            stringPrivileges.append(e.toString());
+                            stringPrivileges.append(",");
+
+                        });
+                        stringPrivileges.deleteCharAt(stringPrivileges.length()-1);
+
+                        errMsg.setText(Query.privilegeObjectToRole(role_Name.getText(),stringPrivileges.toString()));
+
+                    }else{
+                        bandera3=false;
                     }
 
 
@@ -112,7 +150,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
                     }
                 }
             }else{
-                System.out.println(role_Name.getText());
+
                 Query.crearRole(role_Name.getText());
                 errMsg.setText("Role created");
             }
@@ -175,7 +213,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         //--
 
         //--setPrivilegeHierachyList
-        ObservableList<String> hierachylist=FXCollections.observableArrayList("ADMIN","CREATE ANY INDEX","CREATE ANY MATERIALIZED VIEW"
+        ObservableList<String> hierachylist=FXCollections.observableArrayList("CREATE ANY INDEX","CREATE ANY MATERIALIZED VIEW"
                 ,"CREATE ANY PROCEDURE","CREATE ANY SEQUENCE","CREATE ANY SYNONYM","CREATE ANY TABLE","CREATE ANY VIEW",
                 "DELETE ANY TABLE","EXECUTE ANY PROCEDURE","INSERT ANY TABLE","SELECT ANY SEQUENCE","SELECT ANY TABLE"
                 ,"UPDATE ANY TABLE");
@@ -184,6 +222,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         //--
 
         //setSystemList
+        /*
         ObservableList<String> systemList=FXCollections.observableArrayList("ADMIN","ALTER ANY CACHE GROUP","ALTER ANY INDEX"
                 ,"ALTER ANY MATERIALIZED VIEW","ALTER ANY PROCEDURE","ALTER ANY SEQUENCE","ALTER ANY TABLE"
                 ,"ALTER ANY VIEW","CACHE_MANAGER","CREATE ANY CACHE GROUP","CREATE ANY INDEX","CREATE ANY MATERIALIZED VIEW",
@@ -194,6 +233,17 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
                 ,"DROP ANY TABLE","DROP ANY VIEW","DROP PUBLIC SYNONYM","EXECUTE ANY PROCEDURE","FLUSH ANY CACHE GROUP"
                 ,"INSERT ANY TABLE","LOAD ANY CACHE GROUP","REFRESH ANY CACHE GROUP","SELECT ANY SEQUENCE","SELECT ANY TABLE"
                 ,"UNLOAD ANY CACHE GROUP","UPDATE ANY TABLE","XLA");
+         */
+        ObservableList<String> systemList=FXCollections.observableArrayList("ALTER ANY INDEX"
+                ,"ALTER ANY MATERIALIZED VIEW","ALTER ANY PROCEDURE","ALTER ANY SEQUENCE","ALTER ANY TABLE"
+                ,"CREATE ANY INDEX","CREATE ANY MATERIALIZED VIEW",
+                "CREATE ANY PROCEDURE","CREATE ANY SEQUENCE","CREATE ANY SYNONYM","CREATE ANY TABLE","CREATE ANY VIEW"
+                ,"CREATE MATERIALIZED VIEW","CREATE PROCEDURE","CREATE PUBLIC SYNONYM","CREATE SEQUENCE"
+                ,"CREATE SESSION","CREATE SYNONYM","CREATE TABLE","CREATE VIEW","DELETE ANY TABLE"
+                ,"DROP ANY INDEX","DROP ANY MATERIALIZED VIEW","DROP ANY PROCEDURE","DROP ANY SEQUENCE","DROP ANY SYNONYM"
+                ,"DROP ANY TABLE","DROP ANY VIEW","DROP PUBLIC SYNONYM","EXECUTE ANY PROCEDURE"
+                ,"INSERT ANY TABLE","SELECT ANY SEQUENCE","SELECT ANY TABLE"
+                ,"UPDATE ANY TABLE");
         listViewSystem.setItems(systemList);
         listViewSystem.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //--

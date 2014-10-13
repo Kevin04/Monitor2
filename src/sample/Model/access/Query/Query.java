@@ -80,8 +80,24 @@ public class Query {
         sb.append(" TO ");
         sb.append(role);
         try{
-            System.out.println("\n");
-            System.out.println(sb.toString());
+
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return "privilege(s) assigned";
+
+        } catch (SQLException e) {
+            return e.toString().substring(44,e.toString().length());
+        }
+    }
+
+    public static String privilegeObjectToRole(String role, String privileges){
+        StringBuilder sb= new StringBuilder();
+        sb.append("GRANT ");
+        sb.append(privileges);
+        sb.append(" TO ");
+        sb.append(role);
+        try{
+
             pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
             return "privilege(s) assigned";
