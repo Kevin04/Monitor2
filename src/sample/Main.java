@@ -17,6 +17,9 @@ public class Main extends Application {
     public static String RoleNPrivileges="rolesNprivileges";
     public static String RoleNPrivilegesFile="./View/VentanaPrivilegios.fxml";
     public static ScreensController mainContainer;
+    public static String ModifyRoleNPrivileges="ControllerModifyRolesAndPrivileges";
+    public static String ModifyRoleNPrivilegesFile="./View/ViewModifyPrivileges.fxml";
+
     public static final String keyEncrypth="Mary has one ca1";
 
     public static String appWindowFile = "./View/Main.fxml";

@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
 import sample.ControlledScreen;
 import sample.Model.access.Query.Query;
 import sample.Model.entities.DBA_Roles;
@@ -119,7 +122,13 @@ public class ControllerModifyRolesAndPrivileges implements Initializable, Contro
     @FXML
     private void handleDeleteRole(){
 
+        Action response=Dialogs.create().title("Are you sure?").masthead("Are you sure to drop the role?")
+                .message("Do you want to continue?").showConfirm();
+        if(response == Dialog.ACTION_YES){
 
+        }else{
+
+        }
 
     }
 

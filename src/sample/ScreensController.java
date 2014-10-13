@@ -134,6 +134,11 @@ public class ScreensController implements Initializable, ControlledScreen {
         return this.content.getScene();
     }
 
+    @FXML void handleChangeToModifyRole(){
+        this.loadScreen(Main.ModifyRoleNPrivileges, Main.ModifyRoleNPrivilegesFile);
+        this.setScreen(Main.ModifyRoleNPrivileges);
+    }
+
     @FXML
     void changeTOInfoScreen() {
         this.loadScreen(Main.screen2ID, Main.screen2File);
