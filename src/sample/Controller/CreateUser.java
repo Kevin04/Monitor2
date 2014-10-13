@@ -62,7 +62,7 @@ public class CreateUser implements Initializable, ControlledScreen {
 
     @FXML
     void onCMBChange() {
-        System.out.println("YEY");
+
         if (CMB_permisos.getSelectionModel().getSelectedIndex() == 0) {
             LV_Permisos.getItems().clear();
             LV_Permisos.getItems().addAll(Privilege.SystemPrivs);

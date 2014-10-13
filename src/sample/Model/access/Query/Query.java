@@ -71,6 +71,26 @@ public class Query {
         }
     }
 
+    public static String privilegeObjectToRole(String role, String privileges,String table){
+        StringBuilder sb= new StringBuilder();
+        sb.append("GRANT ");
+        sb.append(privileges);
+        sb.append(" ON ");
+        sb.append(table);
+        sb.append(" TO ");
+        sb.append(role);
+        try{
+            System.out.println("\n");
+            System.out.println(sb.toString());
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return "privilege(s) assigned";
+
+        } catch (SQLException e) {
+            return e.toString().substring(44,e.toString().length());
+        }
+    }
+
     public static void crearRole(String rol, String action) {
         try {
             StringBuilder sb= new StringBuilder();
@@ -664,7 +684,7 @@ public class Query {
     }
 
 
-    public static void grantRoletoRole(String parent,String son) {
+    public static String grantRoletoRole(String parent,String son) {
         try {
             StringBuilder sb= new StringBuilder();
             sb.append("grant ");
@@ -673,8 +693,9 @@ public class Query {
             sb.append(son);
             pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
+            return "Role assigned\n";
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            return e.toString().substring(44,e.toString().length());
         }
     }
 }

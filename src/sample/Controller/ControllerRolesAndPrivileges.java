@@ -7,15 +7,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sample.ControlledScreen;
 import sample.Model.access.Query.Query;
-import sample.Model.entities.DBA_Roles;
-import sample.Model.entities.User;
-import sample.Model.entities.User_Privileges_Roles;
+import sample.Model.entities.*;
 import sample.ScreensController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import static java.lang.System.err;
 import static java.lang.System.exit;
 
 /**
@@ -39,16 +40,48 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
 
     @FXML
     private void handleAssignPrivilege(){
+        if(!role_Name.getText().isEmpty()){
+            if(role_Name.getText().matches("^[a-zA-Z0-9]*$")){
+                if(listViewObjects.getSelectionModel().getSelectedItems()!=null){
+                    if(textObject.getText()!=null&&textObject.getText().matches("^[a-zA-Z0-9]*$")&&
+                            !textObject.getText().isEmpty()){
 
+                        ObservableList<String> privileges= listViewObjects.getSelectionModel().getSelectedItems();
+                        StringBuilder stringPrivileges= new StringBuilder();
+
+                        privileges.forEach(e->{
+
+                            stringPrivileges.append(e.toString());
+                            stringPrivileges.append(",");
+
+                        });
+                        stringPrivileges.deleteCharAt(stringPrivileges.length()-1);
+
+                        errMsg.setText(Query.privilegeObjectToRole(role_Name.getText(),stringPrivileges.toString(),
+                                textObject.getText()));
+                    }else{
+                        errMsg.setText("You must have to choose one table to assign the Object privileges.");
+                    }
+
+
+                }else{
+                    errMsg.setText("You must have to choose your privileges.");
+                }
+            }else{
+                errMsg.setText("Only use letters and digits for example: myRole1");
+            }
+        }else{
+            errMsg.setText("You must have to fill the role name");
+        }
     }
     @FXML
     private void handleAssignRole(){
         if(!role_Name.getText().isEmpty()){
             if(role_Name.getText().matches("^[a-zA-Z0-9]*$")){
                 if(roleListView.getSelectionModel().getSelectedItem()!=null){
-                    Query.grantRoletoRole(roleListView.getSelectionModel().getSelectedItem().toString()
-                            ,role_Name.getText());
-                    errMsg.setText("Role assigned.");
+
+                    errMsg.setText(Query.grantRoletoRole(roleListView.getSelectionModel().getSelectedItem().toString()
+                            ,role_Name.getText()));
                 }else{
                     errMsg.setText("You must have to choose one role to assign.");
                 }
@@ -106,6 +139,7 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         }
         text_info.setVisible(false);
         comboBox.setItems(list);
+
         comboBox.setOnAction(e->{
             if(comboBox.getSelectionModel().getSelectedItem().equals("IDENTIFIED BY")){
                 text_info.setVisible(true);
@@ -130,8 +164,12 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
         //--
 
         //setlistViewObjects
+        /*
         ObservableList<String> objectList=FXCollections.observableArrayList("DELETE","EXECUTE","FLUSH","INDEX","INSERT"
                 ,"LOAD","REFERENCES","REFRESH","SELECT","UNLOAD","UPDATE");
+        */
+        ObservableList<String> objectList=FXCollections.observableArrayList("DELETE","EXECUTE","INSERT"
+                ,"SELECT","UPDATE");
         listViewObjects.setItems(objectList);
         listViewObjects.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         //--
