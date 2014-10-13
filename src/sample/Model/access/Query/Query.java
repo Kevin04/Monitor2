@@ -5,9 +5,9 @@ import sample.Model.entities.Role;
 import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
-import java.sql.*;
-
-import static sample.cr.una.pesistence.access.ORCConnection.Instance;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Created by Kevin on 11/10/2014.

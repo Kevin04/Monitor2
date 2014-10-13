@@ -1,8 +1,6 @@
 package sample.Model.access.User;
 
-import javafx.collections.ObservableList;
 import sample.Model.entities.DBA_Roles;
-import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.sql.Connection;

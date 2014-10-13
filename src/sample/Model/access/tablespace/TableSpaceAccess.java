@@ -1,17 +1,15 @@
 package sample.Model.access.tablespace;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import sample.Model.entities.TableSpace;
 import sample.cr.una.pesistence.access.ORCConnection;
 
-import java.math.BigDecimal;
-import java.sql.*;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -19,7 +17,6 @@ import java.util.stream.Collectors;
  */
 public class TableSpaceAccess {
     public static ObservableList<TableSpace> tableSpaces;
-
     private static Connection connection;
     private static PreparedStatement pps;
 
@@ -33,27 +30,27 @@ public class TableSpaceAccess {
         }
     }
 
-    public static List<TableSpace> retrieveTableSpaces(){
+    public static List<TableSpace> retrieveTableSpaces() {
         List<TableSpace> tableSpaces = new ArrayList<>();
-        try{
-        if(ORCConnection.Instance().isInitialized()) {
-
-            ResultSet rs = pps.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString(1);
-                String status = rs.getString(2);
-                Boolean isTmp = rs.getString(3).toUpperCase().equals("TEMPORARY");
-                TableSpace tbs = new TableSpace(name,status,isTmp);
-                tableSpaces.add(tbs);
+        try {
+            if (ORCConnection.Instance().isInitialized()) {
+                ResultSet rs = pps.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString(1);
+                    String status = rs.getString(2);
+                    Boolean isTmp = rs.getString(3).toUpperCase().equals("TEMPORARY");
+                    TableSpace tbs = new TableSpace(name, status, isTmp);
+                    tableSpaces.add(tbs);
+                }
+                return tableSpaces;
             }
-            return tableSpaces;
-        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public static List<TableSpace> tempList(){
-        return retrieveTableSpaces().stream().filter((t)->t.IsTemporary()).collect(Collectors.toList());
+
+    public static List<TableSpace> tempList() {
+        return retrieveTableSpaces().stream().filter((t) -> t.IsTemporary()).collect(Collectors.toList());
     }
 }

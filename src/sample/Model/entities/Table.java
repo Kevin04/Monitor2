@@ -1,7 +1,5 @@
 package sample.Model.entities;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -12,6 +10,7 @@ public class Table {
     private StringProperty name = new SimpleStringProperty();
     private StringProperty tableSpace = new SimpleStringProperty();
     private StringProperty owner = new SimpleStringProperty();
+
     public Table(String name, String owner, String tableSpace) {
         this.name.set(name);
         this.owner.set(owner);
@@ -50,7 +49,7 @@ public class Table {
         this.owner.set(owner);
     }
 
-    public String getOwner(){
+    public String getOwner() {
         return owner.get();
     }
 }

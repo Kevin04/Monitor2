@@ -1,7 +1,6 @@
 package sample.Model.access.User;
 
 import sample.Model.entities.Role;
-import sample.Model.entities.TableSpace;
 import sample.cr.una.pesistence.access.ORCConnection;
 
 import java.sql.Connection;
@@ -28,16 +27,16 @@ public class PlainDBARole {
         }
     }
 
-    public static List<Role> retrieveRoles(){
+    public static List<Role> retrieveRoles() {
         List<Role> roles = new ArrayList<>();
-        try{
-            if(ORCConnection.Instance().isInitialized()) {
+        try {
+            if (ORCConnection.Instance().isInitialized()) {
                 ResultSet rs = pps.executeQuery();
                 while (rs.next()) {
                     String name = rs.getString(1);
                     String passreq = rs.getString(2);
                     String auth = rs.getString(3);
-                    Role r = new Role(name,passreq,auth);
+                    Role r = new Role(name, passreq, auth);
                     roles.add(r);
                 }
                 return roles;

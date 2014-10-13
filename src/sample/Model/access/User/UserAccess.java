@@ -1,7 +1,6 @@
 package sample.Model.access.User;
 
 import javafx.collections.ObservableList;
-import sample.Model.entities.TableSpace;
 import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
@@ -16,9 +15,7 @@ import java.util.List;
  * Created by JoséPablo on 08/10/2014.
  */
 public class UserAccess {
-
     public static ObservableList<User> Users;
-
     private static Connection connection;
     private static PreparedStatement pps;
 
@@ -32,20 +29,23 @@ public class UserAccess {
             e.printStackTrace();
         }
     }
-    public static User getByName(String name){
+
+    public static User getByName(String name) {
         try {
-            return retrieveUsers().stream().filter(u->u.getUSERNAME().equals(name)).findFirst().get();
-        }catch (Exception e){
-            try {Thread.sleep(150);} catch (InterruptedException e1) {}
+            return retrieveUsers().stream().filter(u -> u.getUSERNAME().equals(name)).findFirst().get();
+        } catch (Exception e) {
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException e1) {
+            }
             return null;
         }
-
     }
+
     public static List<User> retrieveUsers() {
         List<User> tableUser = new ArrayList<>();
         try {
             if (ORCConnection.Instance().isInitialized()) {
-
                 ResultSet rs = pps.executeQuery();
                 while (rs.next()) {
                     String username = rs.getString(1);
@@ -55,16 +55,15 @@ public class UserAccess {
                     String lock_date = rs.getString(5);
                     String expiry_date = rs.getString(6);
                     String default_tablespace = rs.getString(7);
-                    String temporary_tablespace= rs.getString(8);
-                    String created=rs.getString(9);
-                    String profile= rs.getString(10);
-                    String inicial_rsrc_customer_group=rs.getString(11);
-                    String external_name=rs.getString(12);
-                    User tbs = new User(username,user_id,password,account_status,lock_date,expiry_date,default_tablespace,
-                            temporary_tablespace,created,profile,inicial_rsrc_customer_group,external_name);
+                    String temporary_tablespace = rs.getString(8);
+                    String created = rs.getString(9);
+                    String profile = rs.getString(10);
+                    String inicial_rsrc_customer_group = rs.getString(11);
+                    String external_name = rs.getString(12);
+                    User tbs = new User(username, user_id, password, account_status, lock_date, expiry_date, default_tablespace,
+                            temporary_tablespace, created, profile, inicial_rsrc_customer_group, external_name);
                     tableUser.add(tbs);
                 }
-
                 return tableUser;
             }
         } catch (SQLException e) {

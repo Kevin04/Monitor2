@@ -1,5 +1,4 @@
 package sample;
-
 /**
  * Created by Jose on 13/09/2014.
  */
@@ -18,22 +17,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import sample.Model.entities.DBA_Roles;
 import sample.Model.entities.User;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class ScreensController  implements Initializable, ControlledScreen {
+public class ScreensController implements Initializable, ControlledScreen {
     //Holds the screens to be displayed
-
     @FXML
     AnchorPane content;
     ScreensController parentController;
+
     @Override
     public void setScreenParent(ScreensController screenPage) {
         parentController = screenPage;
@@ -41,13 +38,12 @@ public class ScreensController  implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
+
     private HashMap<String, Node> screens = new HashMap<>();
 
     public ScreensController() {
         super();
-
     }
 
     //Add the screen to the collection
@@ -64,7 +60,6 @@ public class ScreensController  implements Initializable, ControlledScreen {
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
-
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
@@ -82,10 +77,11 @@ public class ScreensController  implements Initializable, ControlledScreen {
     //one screen the new screen is been added second, and then the current screen is removed.
     // If there isn't any screen being displayed, the new screen is just added to the root.
     public boolean setScreen(final String name) {
-        content.getScene().getWindow().setOnCloseRequest((e)->{this.close();});
+        content.getScene().getWindow().setOnCloseRequest((e) -> {
+            this.close();
+        });
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = content.opacityProperty();
-
             if (!content.getChildren().isEmpty()) {    //if there is more than one screen
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
@@ -98,7 +94,6 @@ public class ScreensController  implements Initializable, ControlledScreen {
                                 content.setLeftAnchor(content.getChildren().get(0), 0.0);
                                 content.setBottomAnchor(content.getChildren().get(0), 0.0);
                                 content.setRightAnchor(content.getChildren().get(0), 0.0);
-
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -106,7 +101,6 @@ public class ScreensController  implements Initializable, ControlledScreen {
                             }
                         }, new KeyValue(opacity, 0.0)));
                 fade.play();
-
             } else {
                 content.setOpacity(0.0);
                 content.getChildren().add(screens.get(name));       //no one else been displayed, then just show
@@ -139,19 +133,27 @@ public class ScreensController  implements Initializable, ControlledScreen {
     public Scene getScene() {
         return this.content.getScene();
     }
-    @FXML void changeTOInfoScreen(){
-        this.loadScreen(Main.screen2ID,Main.screen2File);
+
+    @FXML
+    void changeTOInfoScreen() {
+        this.loadScreen(Main.screen2ID, Main.screen2File);
         this.setScreen(Main.screen2ID);
     }
-    @FXML void createUserWindow(){
-        this.loadScreen(Main.creteUserWindow,Main.getCreteUserWindowFile);
+
+    @FXML
+    void createUserWindow() {
+        this.loadScreen(Main.creteUserWindow, Main.getCreteUserWindowFile);
         this.setScreen(Main.creteUserWindow);
     }
-    @FXML void changeTORoleNPrivilege(){
-        this.loadScreen(Main.RoleNPrivileges,Main.RoleNPrivilegesFile);
+
+    @FXML
+    void changeTORoleNPrivilege() {
+        this.loadScreen(Main.RoleNPrivileges, Main.RoleNPrivilegesFile);
         this.setScreen(Main.RoleNPrivileges);
     }
-    @FXML void close(){
+
+    @FXML
+    void close() {
         try {
             User.end();
             DBA_Roles.end();
