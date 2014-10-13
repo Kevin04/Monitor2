@@ -98,8 +98,16 @@ public class CreateUser implements Initializable, ControlledScreen {
         }
         else{
             Dialogs.create().message("Se ha creado el Usuario").title("Exito").showInformation();
+            u = UserAccess.getByName(TXT_name.getText());
+            if(u == null)
+                u = new User(TXT_name.getText(),10,"","","","","","","","","","");
+            Privilege connect = new Privilege("CONNECT");
+            Privilege session = new Privilege("CREATE SESSION");
+            Query.priviletoUser(connect,u);
+            Query.priviletoUser(session,u);
         }
-        this.u = UserAccess.getByName(TXT_name.getText());
+
+
     }
     @FXML
     void asignarPrivilegio(){
@@ -120,10 +128,24 @@ public class CreateUser implements Initializable, ControlledScreen {
             }
         }
         if(!Query.priviletoUser(p,u)) Dialogs.create().message("Error Al agregar Permisos").title("Error").showError();
-        else Dialogs.create().message("Privilegios Agregados Correctamente").title("Exito").showConfirm();
+        else Dialogs.create().message("Privilegios Agregados Correctamente").title("Exito").showInformation();
     }
     private static boolean isNumeric(String str)
     {
         return str.matches("-?\\d+(\\.\\d+)? ?(M|K|G)");  //match a number with optional '-' and decimal.
+    }
+    @FXML
+    void granRoleToUser(){
+        if(u==null){
+            Dialogs.create().message("No se Ha creado un Usuario al cual Asignarle los Privilegios").title("Error").showError();
+            return;
+        }
+        Role r = LV_roles.getSelectionModel().getSelectedItem();
+        if(r== null){
+            Dialogs.create().message("Debe Seleccionar un Role").title("Error").showError();
+            return;
+        }
+        if(Query.grantRoleToUser(r,u))Dialogs.create().message("Rol Asignado").title("Asignado").showInformation();
+        else Dialogs.create().message("No se a podido asignar el role").title("Error").showError();
     }
 }

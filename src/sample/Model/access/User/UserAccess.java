@@ -33,7 +33,13 @@ public class UserAccess {
         }
     }
     public static User getByName(String name){
-        return retrieveUsers().stream().filter(u->u.getUSERNAME().equals(name)).findFirst().get();
+        try {
+            return retrieveUsers().stream().filter(u->u.getUSERNAME().equals(name)).findFirst().get();
+        }catch (Exception e){
+            try {Thread.sleep(150);} catch (InterruptedException e1) {}
+            return null;
+        }
+
     }
     public static List<User> retrieveUsers() {
         List<User> tableUser = new ArrayList<>();

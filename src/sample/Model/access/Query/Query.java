@@ -1,6 +1,7 @@
 package sample.Model.access.Query;
 
 import sample.Model.entities.Privilege;
+import sample.Model.entities.Role;
 import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
@@ -34,7 +35,18 @@ public class Query {
         }
         return false;
     }
-
+    public static boolean grantRoleToUser(Role r, User u){
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("GRANT ").append(r.getRole()).append(" TO ").append(u.getUSERNAME());
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
     public static void crearRole(String rol) {
         try {
             StringBuilder sb= new StringBuilder();
