@@ -132,7 +132,7 @@ public class CreateUser implements Initializable, ControlledScreen {
     }
     private static boolean isNumeric(String str)
     {
-        return str.matches("-?\\d+(\\.\\d+)? ?(M|K|G)");  //match a number with optional '-' and decimal.
+        return str.matches("-?\\d+(\\.\\d+)? ?(M|m|K|k|G|g)"); 
     }
     @FXML
     void granRoleToUser(){
