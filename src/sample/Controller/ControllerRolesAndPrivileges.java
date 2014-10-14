@@ -143,16 +143,14 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
                         sb.append(comboBox.getSelectionModel().getSelectedItem().toString());
                         sb.append(" ");
                         sb.append(text_info.getText());
-                        Query.crearRole(role_Name.getText(), sb.toString());
-                        errMsg.setText("Role created");
-                    }else{
-                        errMsg.setText("Only use letter and digits for example: mypass123");
+                        errMsg.setText(Query.crearRole(role_Name.getText(), sb.toString()));
                     }
+                }else{
+                    errMsg.setText(Query.crearRole(role_Name.getText(),comboBox.getSelectionModel().getSelectedItem().toString()));
                 }
             }else{
 
-                Query.crearRole(role_Name.getText());
-                errMsg.setText("Role created");
+                errMsg.setText(Query.crearRole(role_Name.getText()));
             }
         }else{
             errMsg.setText("Only use letter and digits for example: myRole1");

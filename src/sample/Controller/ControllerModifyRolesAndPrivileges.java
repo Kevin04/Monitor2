@@ -117,7 +117,31 @@ public class ControllerModifyRolesAndPrivileges implements Initializable, Contro
     }
     @FXML
     private void handleAlterRole(){
+        if(roleListView.getSelectionModel().getSelectedItem()!=null){
+            if(comboBox.getSelectionModel().getSelectedItem()!=null){
+                if(comboBox.getSelectionModel().getSelectedItem().toString().equals("IDENTIFIED BY")||
+                        comboBox.getSelectionModel().getSelectedItem().toString().equals("IDENTIFIED USING")) {
 
+                    if(text_info.getText().matches("^[a-zA-Z0-9]*$")){
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(comboBox.getSelectionModel().getSelectedItem().toString());
+                        sb.append(" ");
+                        sb.append(text_info.getText());
+
+                        Query.alterRole(roleListView.getSelectionModel().getSelectedItem().toString(), sb.toString());
+                        errMsg.setText(Query.alterRole(roleListView.getSelectionModel().getSelectedItem().toString(), sb.toString()));
+                    }else{
+                        errMsg.setText("Only use letter and digits for example: mypass123");
+                    }
+                }else{
+                    errMsg.setText(Query.alterRole(roleListView.getSelectionModel().getSelectedItem().toString(),comboBox.getSelectionModel().getSelectedItem().toString()));
+                }
+            }else{
+                errMsg.setText(Query.alterRole(roleListView.getSelectionModel().getSelectedItem().toString()));
+            }
+        }else{
+            errMsg.setText("Only use letter and digits for example: myRole1");
+        }
     }
     @FXML
     private void handleDeleteRole(){

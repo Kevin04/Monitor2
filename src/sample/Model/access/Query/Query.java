@@ -47,18 +47,33 @@ public class Query {
             return false;
         }
     }
-    public static void crearRole(String rol) {
+    public static String crearRole(String rol) {
         try {
             StringBuilder sb= new StringBuilder();
             sb.append("create role ");
             sb.append(rol);
             pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
-            
+            return "Role created";
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            return e.toString().substring(44,e.toString().length());
         }
     }
+
+    public static String alterRole(String rol) {
+        try {
+            StringBuilder sb= new StringBuilder();
+            sb.append("alter role ");
+            sb.append(rol);
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return "alter complete";
+
+        } catch (SQLException e) {
+            return e.toString().substring(44,e.toString().length());
+        }
+    }
+
     public static boolean priviletoUser(Privilege p, User u){
         String sql = p.ToUserQuery(u);
        try{
@@ -107,7 +122,7 @@ public class Query {
         }
     }
 
-    public static void crearRole(String rol, String action) {
+    public static String crearRole(String rol, String action) {
         try {
             StringBuilder sb= new StringBuilder();
             sb.append("create role ");
@@ -116,9 +131,25 @@ public class Query {
             sb.append(action);
             pps = connection.prepareStatement(sb.toString());
             pps.executeUpdate();
-            
+            return "role created";
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            return e.toString().substring(44,e.toString().length());
+        }
+    }
+
+    public static String alterRole(String rol, String action) {
+        try {
+            StringBuilder sb= new StringBuilder();
+            sb.append("alter role ");
+            sb.append(rol);
+            sb.append(" ");
+            sb.append(action);
+            System.out.println(sb.toString());
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return "alter role";
+        } catch (SQLException e) {
+            return e.toString().substring(44,e.toString().length());
         }
     }
 
