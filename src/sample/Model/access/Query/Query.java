@@ -714,4 +714,17 @@ public class Query {
             return e.toString().substring(44,e.toString().length());
         }
     }
+    public static String dropRole(String role){
+        try {
+            StringBuilder sb= new StringBuilder();
+            sb.append("drop ");
+            sb.append("role ");
+            sb.append(role);
+            pps = connection.prepareStatement(sb.toString());
+            pps.executeUpdate();
+            return "Role drop.\n";
+        } catch (SQLException e) {
+            return e.toString().substring(44,e.toString().length());
+        }
+    }
 }

@@ -125,9 +125,7 @@ public class ControllerModifyRolesAndPrivileges implements Initializable, Contro
         Action response=Dialogs.create().title("Are you sure?").masthead("Are you sure to drop the role?")
                 .message("Do you want to continue?").showConfirm();
         if(response == Dialog.ACTION_YES){
-
-        }else{
-
+            errMsg.setText(Query.dropRole(this.roleListView.getSelectionModel().getSelectedItem().toString()));
         }
 
     }
