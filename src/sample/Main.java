@@ -26,6 +26,8 @@ public class Main extends Application {
     public static String appWindow = "appWindow";
     public static String creteUserWindow = "createUserWindow";
     public static String getCreteUserWindowFile = "./View/CreateUser.fxml";
+    public static String modifyUserWindow = "modifiUserWindow";
+    public static String modifyUserFile = "./View/ModifyUser.fxml";
 
 
 

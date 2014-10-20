@@ -18,40 +18,39 @@ import java.util.concurrent.TimeUnit;
  * Created by JoséPablo on 08/10/2014.
  */
 public class User {
-    StringProperty USERNAME= new SimpleStringProperty();
-    IntegerProperty USER_ID= new SimpleIntegerProperty();
-    StringProperty PASSWORD= new SimpleStringProperty();
-    StringProperty ACCOUNT_STATUS= new SimpleStringProperty();
-    StringProperty LOCK_DATE= new SimpleStringProperty();
-    StringProperty EXPIRY_DATE= new SimpleStringProperty();
-    StringProperty DEFAULT_TABLESPACE= new SimpleStringProperty();
-    StringProperty TEMPORARY_TABLESPACE= new SimpleStringProperty();
-    StringProperty CREATED= new SimpleStringProperty();
-    StringProperty PROFILE= new SimpleStringProperty();
-    StringProperty INITIAL_RSRC_CONSUMER_GROUP= new SimpleStringProperty();
-    StringProperty EXTERNAL_NAME= new SimpleStringProperty();
-
-
+    StringProperty USERNAME = new SimpleStringProperty();
+    IntegerProperty USER_ID = new SimpleIntegerProperty();
+    StringProperty PASSWORD = new SimpleStringProperty();
+    StringProperty ACCOUNT_STATUS = new SimpleStringProperty();
+    StringProperty LOCK_DATE = new SimpleStringProperty();
+    StringProperty EXPIRY_DATE = new SimpleStringProperty();
+    StringProperty DEFAULT_TABLESPACE = new SimpleStringProperty();
+    StringProperty TEMPORARY_TABLESPACE = new SimpleStringProperty();
+    StringProperty CREATED = new SimpleStringProperty();
+    StringProperty PROFILE = new SimpleStringProperty();
+    StringProperty INITIAL_RSRC_CONSUMER_GROUP = new SimpleStringProperty();
+    StringProperty EXTERNAL_NAME = new SimpleStringProperty();
     //TODO MOVER TODO ESTO DONDE VA
     static boolean stop = false;
     public static List<User> userList = new ArrayList<>();
     static ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
     static Runnable tableSpacesRetriever;
 
-    public static void begin(){
+    public static void begin() {
         userList = UserAccess.retrieveUsers();
-        tableSpacesRetriever = ()->{
+        tableSpacesRetriever = () -> {
             try {
                 if (stop) return;
                 List<User> l = UserAccess.retrieveUsers();
                 userList.clear();
                 userList.addAll(l);
-            }catch (Exception e){ e.printStackTrace();}
-
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         };
-        executor.scheduleAtFixedRate(tableSpacesRetriever,5,5, TimeUnit.MINUTES);
-
+        executor.scheduleAtFixedRate(tableSpacesRetriever, 5, 5, TimeUnit.MINUTES);
     }
+
     public static void end() throws InterruptedException {
         stop = true;
         executor.awaitTermination(100, TimeUnit.MILLISECONDS);
@@ -67,7 +66,6 @@ public class User {
     }
 
     ObservableList<User> users = FXCollections.observableList(new ArrayList<>());
-
     //---------------------
 
     public User() {
@@ -236,7 +234,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return USERNAME.get();
+        /*return "User{" +
                 "USERNAME=" + USERNAME +
                 ", USER_ID=" + USER_ID +
                 ", PASSWORD=" + PASSWORD +
@@ -249,6 +248,6 @@ public class User {
                 ", PROFILE=" + PROFILE +
                 ", INITIAL_RSRC_CONSUMER_GROUP=" + INITIAL_RSRC_CONSUMER_GROUP +
                 ", EXTERNAL_NAME=" + EXTERNAL_NAME +
-                '}';
+                '}';*/
     }
 }

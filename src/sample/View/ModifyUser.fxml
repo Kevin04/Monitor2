@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0"
+            prefWidth="879.0" stylesheets="@CSS/Main.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ModifyUserController">
+    <children>
+        <AnchorPane prefHeight="723.0" prefWidth="887.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="645.0" prefWidth="887.0" styleClass="vbox"
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Pane prefHeight="347.0" prefWidth="879.0">
+                            <children>
+                                <ListView fx:id="LV_roles" layoutX="73.0" layoutY="70.0" prefHeight="154.0"
+                                          prefWidth="315.0"/>
+                                <Button layoutX="426.0" layoutY="132.0" mnemonicParsing="false"
+                                        onAction="#granRoleToUser" text="-&gt;"/>
+                                <ListView layoutX="523.0" layoutY="71.0" onDragOver="#restoreHidden" prefHeight="154.0"
+                                          prefWidth="315.0"/>
+                                <Label layoutX="73.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0"
+                                       styleClass="label-bright" text="Roles" textFill="#f8f6f6"/>
+                                <Line endX="981.0" layoutX="101.0" layoutY="39.0" startX="-100.0" stroke="#fcf8f8"/>
+                                <Label layoutX="634.0" layoutY="39.0" prefHeight="25.0" prefWidth="54.0"
+                                       styleClass="label-bright" text="Asignados" textFill="#f8f6f6"/>
+                                <Label layoutX="199.0" layoutY="39.0" prefHeight="25.0" prefWidth="64.0"
+                                       styleClass="label-bright" text="Disponibles" textFill="#f8f6f6"/>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="344.0" prefWidth="879.0">
+                            <children>
+                                <Line endX="1000.0" layoutX="100.0" startX="-100.0" stroke="#f2f0f0"/>
+                                <Label layoutX="63.0" layoutY="22.0" text="Tipo Permiso"/>
+                                <ComboBox fx:id="CMB_permisos" layoutX="178.0" layoutY="20.0" onAction="#onCMBChange"
+                                          prefWidth="150.0"/>
+                                <ListView fx:id="LV_Permisos" layoutX="78.0" layoutY="67.0" prefHeight="124.0"
+                                          prefWidth="760.0"/>
+                                <Label fx:id="LBL_on" layoutX="611.0" layoutY="90.0" text="ON" visible="false"/>
+                                <TextField fx:id="TXT_on" layoutX="667.0" layoutY="82.0" visible="false"/>
+                                <Button layoutX="737.0" layoutY="213.0" mnemonicParsing="false"
+                                        onAction="#asignarPrivilegio" text="Agregar"/>
+                                <Button layoutY="-262.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false"
+                                        onAction="#restoreHidden" prefHeight="611.0" prefWidth="15.0" text="&gt;"/>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="179.0" prefWidth="887.0">
+                            <children>
+                                <Line endX="1000.0" layoutX="116.0" startX="-100.0" stroke="WHITE"/>
+                            </children>
+                        </Pane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="selectPane" prefHeight="611.0" prefWidth="879.0" styleClass="v-box"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <children>
+                <ListView fx:id="LV_users" layoutX="88.0" layoutY="171.0" prefHeight="371.0" prefWidth="703.0"
+                          AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0"/>
+                <TextField fx:id="TF_nameFilter" layoutX="88.0" layoutY="89.0" prefHeight="37.0" prefWidth="703.0"
+                           AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0"/>
+                <Text fill="WHITE" layoutX="340.0" layoutY="59.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Seleccione Usuario" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Text>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
