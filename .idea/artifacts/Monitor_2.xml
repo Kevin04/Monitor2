@@ -4,17 +4,23 @@
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="sample.Main" />
+        <option name="convertCss2Bin" value="true" />
         <option name="description" value="" />
+        <option name="height" value="768" />
         <option name="htmlParamFile" value="" />
+        <option name="nativeBundle" value="exe" />
         <option name="paramFile" value="" />
         <option name="title" value="Monitor2" />
         <option name="vendor" value="UNA" />
+        <option name="width" value="1024" />
       </options>
     </properties>
     <root id="root">
       <element id="archive" name="JavaFXApp.jar">
         <element id="module-output" name="JJDatos" />
       </element>
+      <element id="library" level="project" name="commons-dbcp2-2.0.1" />
+      <element id="library" level="project" name="controlsfx-8.0.6_20" />
     </root>
   </artifact>
 </component>
