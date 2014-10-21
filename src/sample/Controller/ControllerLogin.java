@@ -167,7 +167,22 @@ public class ControllerLogin implements Initializable, ControlledScreen {
         PGI_loading.setVisible(true);
         Runnable r = () -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Main.fxml"));
+                /*URL u1 = getClass().getResource("sample/View/Login.fxml");*/
+                URL u2 = getClass().getResource("/sample/View/Main.fxml");//--
+               /* URL u3 = getClass().getResource("./sample/View/Login.fxml");
+                URL u4 = getClass().getResource("/View/Login.fxml");
+                URL u5 = getClass().getResource("./View/Login.fxml");//---
+                URL u6 = getClass().getResource("View/Login.fxml");//---
+                URL u7 = getClass().getResource("/Login.fxml");
+                if(u1!=null) System.out.println("u1");
+                if(u2!=null) System.out.println("u2");
+                if(u3!=null) System.out.println("u3");
+                if(u4!=null) System.out.println("u4");
+                if(u5!=null) System.out.println("u5");
+                if(u6!=null) System.out.println("u6");
+                if(u7!=null) System.out.println("u7");*/
+                if (u2 != null) System.out.println("u2");
+                FXMLLoader loader = new FXMLLoader(u2);
                 final Parent root = loader.load();
                 Platform.runLater(() -> {
                     Stage stage = new Stage();
