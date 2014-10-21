@@ -145,6 +145,23 @@ public class ControllerModifyRolesAndPrivileges implements Initializable, Contro
     }
 
     @Override
+    public void clearData() {
+        this.text_info.setText("");
+        this.textObject.setText("");
+    }
+
+    @Override
+    public void reloadMainData() {
+        lbObjectPrivileges.setVisible(false);
+        textObject.setVisible(false);
+        text_info.setVisible(false);
+        ObservableList<String> stringObservableList = FXCollections.observableArrayList();
+        DBA_Roles.DBA_Roles.forEach(e -> stringObservableList.add(e.getGrantedRole()));
+        roleListView.setItems(stringObservableList);
+        listViewSystem.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         lbObjectPrivileges.setVisible(false);
         textObject.setVisible(false);

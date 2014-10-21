@@ -2,6 +2,7 @@ package sample.Model.access.Query;
 
 import sample.Model.entities.Privilege;
 import sample.Model.entities.Role;
+import sample.Model.entities.TableSpace;
 import sample.Model.entities.User;
 import sample.cr.una.pesistence.access.ORCConnection;
 
@@ -83,6 +84,17 @@ public class Query {
         } catch (SQLException e) {
             e.printStackTrace();
            return false;
+       }
+    }
+
+    public static boolean quotatoUser(User u, String quota, TableSpace tbs) {
+        String sql = "ALTER USER " + u.getUSERNAME() + " QUOTA " + quota + " ON " + tbs.getName();
+        try {
+            connection.createStatement().executeUpdate(sql);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

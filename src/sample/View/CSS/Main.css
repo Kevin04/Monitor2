@@ -222,3 +222,17 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 .root{
 -fx-background-color: black;
 }
+#arrowbtnR{
+	-fx-background-image: url('rightsolid.png');
+	-fx-background-repeat: no-repeat;
+ 	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-border-color: none;
+}
+#arrowbtnL{
+	-fx-background-image: url('leftsolid.png');
+	-fx-background-repeat: no-repeat;
+ 	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-border-color: none;
+}

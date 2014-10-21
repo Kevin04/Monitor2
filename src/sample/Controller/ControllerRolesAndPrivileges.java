@@ -7,16 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sample.ControlledScreen;
 import sample.Model.access.Query.Query;
-import sample.Model.entities.*;
+import sample.Model.entities.DBA_Roles;
+import sample.Model.entities.User;
+import sample.Model.entities.User_Privileges_Roles;
 import sample.ScreensController;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import static java.lang.System.err;
 import static java.lang.System.exit;
 
 /**
@@ -161,6 +160,23 @@ public class ControllerRolesAndPrivileges implements Initializable, ControlledSc
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;
+    }
+
+    @Override
+    public void clearData() {
+        this.role_Name.setText("");
+        this.text_info.setText("");
+        this.textObject.setText("");
+    }
+
+    @Override
+    public void reloadMainData() {
+        lbObjectPrivileges.setVisible(false);
+        textObject.setVisible(false);
+        text_info.setVisible(false);
+        ObservableList<String> stringObservableList = FXCollections.observableArrayList();
+        DBA_Roles.DBA_Roles.forEach(e -> stringObservableList.add(e.getGrantedRole()));
+        roleListView.setItems(stringObservableList);
     }
 
     @Override

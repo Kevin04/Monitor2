@@ -28,6 +28,14 @@ public class AppWindowController implements Initializable, ControlledScreen {
     }
 
     @Override
+    public void clearData() {
+    }
+
+    @Override
+    public void reloadMainData() {
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 

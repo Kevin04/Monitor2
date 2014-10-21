@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="mainPane" minHeight="544.0" minWidth="702.0" prefHeight="544.0" prefWidth="1141.0"
+<BorderPane fx:id="mainPane" minHeight="544.0" minWidth="702.0" prefHeight="646.0" prefWidth="1141.0"
             stylesheets="@CSS/darktheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sample.Controller.ControllerVistaPrincipal">
     <center>
@@ -56,7 +56,6 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints maxHeight="386.0" minHeight="10.0" prefHeight="386.0"
                                                 vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
                                 <TableView fx:id="tableDBA_Roles" prefHeight="200.0" prefWidth="200.0"
@@ -83,7 +82,6 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="370.0"
                                                 vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="151.0" minHeight="0.0" prefHeight="16.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
                                 <TableView fx:id="tableUser_Privileges_Roles" prefHeight="200.0" prefWidth="200.0"

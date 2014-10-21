@@ -132,6 +132,15 @@ public class ControllerVistaPrincipal implements Initializable, ControlledScreen
         stage.setOnCloseRequest(e->frameClose());
         //ORCConnection.Instance().close();
     }
+
+    @Override
+    public void clearData() {
+    }
+
+    @Override
+    public void reloadMainData() {
+    }
+
     @FXML void frameClose(){
         try {
             User.end();

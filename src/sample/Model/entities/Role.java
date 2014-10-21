@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by Casa on 12/10/2014.
  */
-public class Role {
+public class Role implements Comparable<Role> {
     StringProperty Role = new SimpleStringProperty();
     StringProperty PassRequired = new SimpleStringProperty();
     StringProperty Authentication_type = new SimpleStringProperty();
@@ -52,8 +52,14 @@ public class Role {
     public void setAuthentication_type(String authentication_type) {
         this.Authentication_type.set(authentication_type);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getRole();
+    }
+
+    @Override
+    public int compareTo(Role o) {
+        return this.getRole().compareTo(o.getRole());
     }
 }

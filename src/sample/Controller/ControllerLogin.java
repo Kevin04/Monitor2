@@ -8,7 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -30,24 +33,23 @@ import java.util.ResourceBundle;
  * Created by Jose on 14/09/2014.
  */
 public class ControllerLogin implements Initializable, ControlledScreen {
-    private String ipRegex = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."+
-                             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."+
-                             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."+
-                             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
+    private String ipRegex = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
+            "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
+            "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
+            "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
     //Login things
-    private final String pathArchiveLogin="src\\FileMonitor\\login.ser";
+    private final String pathArchiveLogin = "src\\FileMonitor\\login.ser";
     private LoginFile dataLogin;
     //------
-   ScreensController myController;
+    ScreensController myController;
     @FXML
     BorderPane bordePaneLogin;
     @FXML
     GridPane gridPane;
-
-   @FXML
+    @FXML
     ProgressIndicator PGI_loading;
-   @FXML
-   private TextField user;
+    @FXML
+    private TextField user;
     @FXML
     private TextField password;
     @FXML
@@ -60,51 +62,43 @@ public class ControllerLogin implements Initializable, ControlledScreen {
     private ComboBox<String> comboBox;
     @FXML
     private CheckBox chkRememberMe;
+    ObservableList<String> list = FXCollections.observableArrayList("sysdba", "sysoper");
 
-    ObservableList<String> list= FXCollections.observableArrayList("sysdba","sysoper");
-
-    private boolean readLoginFile(){
-        LoginFile lf=null;
-        File encrypth=new File(pathArchiveLogin);
-        File deEncrypth= new File(pathArchiveLogin);
-        try
-        {
-            Encrypth.decrypt(Main.keyEncrypth,encrypth,deEncrypth);
+    private boolean readLoginFile() {
+        LoginFile lf = null;
+        File encrypth = new File(pathArchiveLogin);
+        File deEncrypth = new File(pathArchiveLogin);
+        try {
+            Encrypth.decrypt(Main.keyEncrypth, encrypth, deEncrypth);
             FileInputStream fileIn = new FileInputStream(pathArchiveLogin);
             System.out.println(fileIn.available());
-            if(fileIn.available()>1){
+            if (fileIn.available() > 1) {
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 lf = (LoginFile) in.readObject();
                 in.close();
                 fileIn.close();
-                dataLogin=lf;
-                Encrypth.encrypt(Main.keyEncrypth,deEncrypth,encrypth);
+                dataLogin = lf;
+                Encrypth.encrypt(Main.keyEncrypth, deEncrypth, encrypth);
                 return true;
-            }else{
-                Encrypth.encrypt(Main.keyEncrypth,deEncrypth,encrypth);
+            } else {
+                Encrypth.encrypt(Main.keyEncrypth, deEncrypth, encrypth);
                 return false;
             }
-
-
-        }catch(CryptoException|IOException i)
-        {
+        } catch (CryptoException | IOException i) {
             i.printStackTrace();
             return false;
-        }catch(ClassNotFoundException c)
-        {
+        } catch (ClassNotFoundException c) {
             System.out.println("class not found");
             c.printStackTrace();
             return false;
         }
     }
 
-    private void writeLoginFile(){
-
-        if(dataLogin==null){
-            dataLogin=new LoginFile();
+    private void writeLoginFile() {
+        if (dataLogin == null) {
+            dataLogin = new LoginFile();
             dataLogin.setAutoLogin(false);
         }
-
         dataLogin.setNameService(this.serviceName.getText());
         dataLogin.setPassword(this.password.getText());
         dataLogin.setPort(Integer.parseInt(this.getPort().getText()));
@@ -112,51 +106,49 @@ public class ControllerLogin implements Initializable, ControlledScreen {
         dataLogin.setUrl(this.url.getText());
         dataLogin.setUser(this.user.getText());
         dataLogin.setRememberMe(this.chkRememberMe.isSelected());
-
-        try
-        {
-            File input=new File(pathArchiveLogin);
+        try {
+            File input = new File(pathArchiveLogin);
             File output = new File(pathArchiveLogin);
-            FileOutputStream fileOut=new FileOutputStream(input);
+            FileOutputStream fileOut = new FileOutputStream(input);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(dataLogin);
             out.close();
             fileOut.close();
-            Encrypth.encrypt(Main.keyEncrypth,input,output);
-
-            System.out.printf("Serialized data is saved in"+pathArchiveLogin);
-        }catch(CryptoException|IOException i)
-        {
+            Encrypth.encrypt(Main.keyEncrypth, input, output);
+            System.out.printf("Serialized data is saved in" + pathArchiveLogin);
+        } catch (CryptoException | IOException i) {
             i.printStackTrace();
         }
-
-
     }
 
-    private void clearLoginFile(){
-        try
-        {
+    private void clearLoginFile() {
+        try {
             FileOutputStream writer = new FileOutputStream(pathArchiveLogin);
             writer.write(0);
             writer.close();
-            System.out.printf("Serialized data is saved in"+pathArchiveLogin);
-        }catch(IOException i)
-        {
+            System.out.printf("Serialized data is saved in" + pathArchiveLogin);
+        } catch (IOException i) {
             i.printStackTrace();
         }
-
     }
+
     @Override
     public void setScreenParent(ScreensController screenPage) {
-        myController=screenPage;
+        myController = screenPage;
+    }
+
+    @Override
+    public void clearData() {
+    }
+
+    @Override
+    public void reloadMainData() {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         comboBox.setItems(list);
-
-        if(readLoginFile()){
+        if (readLoginFile()) {
             this.user.setText(dataLogin.getUser());
             this.url.setText(dataLogin.getUrl());
             this.serviceName.setText(dataLogin.getNameService());
@@ -164,43 +156,36 @@ public class ControllerLogin implements Initializable, ControlledScreen {
             this.comboBox.setValue(dataLogin.getPrivilege());
             this.chkRememberMe.setSelected(dataLogin.isRememberMe());
             this.port.setText(String.valueOf(dataLogin.getPort()));
-            if(dataLogin.isAutoLogin()) {
+            if (dataLogin.isAutoLogin()) {
                 goToPrincipal();
             }
         }
-
     }
 
     @FXML
-    private void goToPrincipal(){
+    private void goToPrincipal() {
         PGI_loading.setVisible(true);
-        Runnable r = ()-> {
+        Runnable r = () -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Main.fxml"));
                 final Parent root = loader.load();
-
-            Platform.runLater( ()->{
-                Stage stage = new Stage();
-                stage.setTitle("Monitor 2");
-                stage.setScene(new Scene(root, 1024,768));
-                stage.show();
-                this.bordePaneLogin.getScene().getWindow().hide();
-
-               // Stage stage2 = (Stage) bordePaneLogin.getScene().getWindow();
-               // stage.close();
-
-            });
+                Platform.runLater(() -> {
+                    Stage stage = new Stage();
+                    stage.setTitle("Monitor 2");
+                    stage.setScene(new Scene(root, 1024, 768));
+                    stage.show();
+                    this.bordePaneLogin.getScene().getWindow().hide();
+                    // Stage stage2 = (Stage) bordePaneLogin.getScene().getWindow();
+                    // stage.close();
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
             //hide this current window (if this is whant you want
             //((Node)(event.getSource())).getScene().getWindow().hide()
-
         };
-        if (checkInitiation())new Thread(r).start();
+        if (checkInitiation()) new Thread(r).start();
         else PGI_loading.setVisible(false);
-
-
     }
 
     public TextField getServiceName() {
@@ -243,53 +228,50 @@ public class ControllerLogin implements Initializable, ControlledScreen {
         this.user = user;
     }
 
-
-   private boolean checkInitiation(){
-
-           String errors = "";
-            if(!user.getText().isEmpty()&&!password.getText().isEmpty()&&!url.getText().isEmpty()&&!port.getText().isEmpty()
-                    &&!serviceName.getText().isEmpty()){
-                if(!url.getText().toLowerCase().matches("(localhost)|"+ipRegex)) errors += "URL miss-matches Format"+System.lineSeparator();
-                if(!port.getText().matches("[0-9]+")) errors += "Port Is A Number";
-                if(errors != ""){
-                    Dialogs.create().message(errors).owner(myController).masthead("Error En Los Datos Ingresados").showError();
-                    return false;            }
-                ORCConnection connection = ORCConnection.Instance();
-                boolean isS = false;
-                if(comboBox.getSelectionModel().getSelectedIndex() >= 0) isS = true;
-                if(user.getText().toLowerCase().equals("system")) isS = true;
-                if(isS == false) {
-                    Dialogs.create().message("Se Necesita Conectarse Como SYSDBA").owner(myController).masthead("Error En Los Privilegios").showError();
-                    return false;
-                }
-                if(user.getText().toLowerCase().equals("system")) isS = false;
-                String usertxt = user.getText();
-                if(isS) usertxt+=" as sysdba";
-                try {
-
-                    connection.initializeConnection(usertxt, comboBox.getValue(), password.getText(), url.getText(), serviceName.getText(), Integer.parseInt(port.getText()), isS);
-
-                    if(connection.isInitialized()){
-                        if(chkRememberMe.isSelected()){
-                            writeLoginFile();
-                        }else {
-                            clearLoginFile();
-                        }
-                       return true;
-                    }
-                    else {
-                        Dialogs.create().masthead("Error En log In").owner(this.myController).message("No se pudo Conectar Con el Servidor").showError();
-                        return false;
-                    }
-                } catch (ClassNotFoundException e) {
-                    Dialogs.create().showException(e);
-                   // connection.close();
-                    return false;
-                } catch (SQLException e) {
-                    Dialogs.create().showException(e);
-                   // connection.close();
-                }
+    private boolean checkInitiation() {
+        String errors = "";
+        if (!user.getText().isEmpty() && !password.getText().isEmpty() && !url.getText().isEmpty() && !port.getText().isEmpty()
+                && !serviceName.getText().isEmpty()) {
+            if (!url.getText().toLowerCase().matches("(localhost)|" + ipRegex))
+                errors += "URL miss-matches Format" + System.lineSeparator();
+            if (!port.getText().matches("[0-9]+")) errors += "Port Is A Number";
+            if (errors != "") {
+                Dialogs.create().message(errors).owner(myController).masthead("Error En Los Datos Ingresados").showError();
+                return false;
             }
-            return false;
+            ORCConnection connection = ORCConnection.Instance();
+            boolean isS = false;
+            if (comboBox.getSelectionModel().getSelectedIndex() >= 0) isS = true;
+            if (user.getText().toLowerCase().equals("system")) isS = true;
+            if (isS == false) {
+                Dialogs.create().message("Se Necesita Conectarse Como SYSDBA").owner(myController).masthead("Error En Los Privilegios").showError();
+                return false;
+            }
+            if (user.getText().toLowerCase().equals("system")) isS = false;
+            String usertxt = user.getText();
+            if (isS) usertxt += " as sysdba";
+            try {
+                connection.initializeConnection(usertxt, comboBox.getValue(), password.getText(), url.getText(), serviceName.getText(), Integer.parseInt(port.getText()), isS);
+                if (connection.isInitialized()) {
+                    if (chkRememberMe.isSelected()) {
+                        writeLoginFile();
+                    } else {
+                        clearLoginFile();
+                    }
+                    return true;
+                } else {
+                    Dialogs.create().masthead("Error En log In").owner(this.myController).message("No se pudo Conectar Con el Servidor").showError();
+                    return false;
+                }
+            } catch (ClassNotFoundException e) {
+                Dialogs.create().showException(e);
+                // connection.close();
+                return false;
+            } catch (SQLException e) {
+                Dialogs.create().showException(e);
+                // connection.close();
+            }
         }
+        return false;
+    }
 }

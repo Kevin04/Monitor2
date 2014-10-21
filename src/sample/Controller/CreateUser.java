@@ -52,6 +52,25 @@ public class CreateUser implements Initializable, ControlledScreen {
     }
 
     @Override
+    public void clearData() {
+        this.CMB_permisos.getSelectionModel().clearSelection();
+        this.CMB_TableSpace.getSelectionModel().clearSelection();
+        this.CMB_TempTBS.getSelectionModel().clearSelection();
+        this.TXT_cuota.setText("");
+        this.TXT_name.setText("");
+        this.TXT_on.setText("");
+        this.TXT_pass.setText("");
+    }
+
+    @Override
+    public void reloadMainData() {
+        CMB_TableSpace.setItems(FXCollections.observableArrayList(TableSpaceAccess.retrieveTableSpaces().stream().filter(t -> !t.IsTemporary()).collect(Collectors.toList())));
+        CMB_TempTBS.setItems(FXCollections.observableArrayList(TableSpaceAccess.tempList()));
+        LV_roles.getItems().clear();
+        LV_roles.getItems().addAll(PlainDBARole.retrieveRoles());
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> cmb_items = FXCollections.observableArrayList("System", "Objects");
         CMB_TableSpace.setItems(FXCollections.observableArrayList(TableSpaceAccess.retrieveTableSpaces().stream().filter(t -> !t.IsTemporary()).collect(Collectors.toList())));
@@ -62,7 +81,6 @@ public class CreateUser implements Initializable, ControlledScreen {
 
     @FXML
     void onCMBChange() {
-
         if (CMB_permisos.getSelectionModel().getSelectedIndex() == 0) {
             LV_Permisos.getItems().clear();
             LV_Permisos.getItems().addAll(Privilege.SystemPrivs);

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import sample.Model.entities.DBA_Roles;
@@ -27,11 +28,23 @@ public class ScreensController implements Initializable, ControlledScreen {
     //Holds the screens to be displayed
     @FXML
     AnchorPane content;
+    @FXML
+    Label LBL_LEFT;
+    @FXML
+    Label LBL_RIGHT;
     ScreensController parentController;
-
+    String lastLoaded = "";
     @Override
     public void setScreenParent(ScreensController screenPage) {
         parentController = screenPage;
+    }
+
+    @Override
+    public void clearData() {
+    }
+
+    @Override
+    public void reloadMainData() {
     }
 
     @Override
@@ -39,6 +52,7 @@ public class ScreensController implements Initializable, ControlledScreen {
     }
 
     private HashMap<String, Node> screens = new HashMap<>();
+    private HashMap<String, ControlledScreen> controlers = new HashMap<>();
 
     public ScreensController() {
         super();
@@ -57,12 +71,14 @@ public class ScreensController implements Initializable, ControlledScreen {
     //Loads the fxml file, add the screen to the screens collection and
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
+        if (screens.containsKey(name)) return true;
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
             myScreenControler.setScreenParent(this);
             addScreen(name, loadScreen);
+            addControler(name, myScreenControler);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -70,6 +86,14 @@ public class ScreensController implements Initializable, ControlledScreen {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void addControler(String name, ControlledScreen myScreenControler) {
+        this.controlers.put(name, myScreenControler);
+    }
+
+    private boolean removeControler(String name) {
+        return this.controlers.remove(name) != null;
     }
 
     //This method tries to displayed the screen with a predefined name.
@@ -119,49 +143,84 @@ public class ScreensController implements Initializable, ControlledScreen {
 
     //This method will remove the screen with the given name from the collection of screens
     public boolean unloadScreen(String name) {
-        if (screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
-            return false;
-        } else {
-            return true;
-        }
+        return screens.remove(name) != null;
+
     }
 
     public Scene getScene() {
         return this.content.getScene();
     }
 
+    void setLeftStatus(String status) {
+        this.LBL_LEFT.setText(status);
+    }
+
+    void setRightStatus(String status) {
+        this.LBL_RIGHT.setText(status);
+    }
+
+    void clearLastScreenData() {
+        if (lastLoaded.equals("")) return;
+        ControlledScreen ctr = controlers.get(lastLoaded);
+        ctr.clearData();
+    }
+
+    void reloadMainData(String name) {
+        ControlledScreen ctr = controlers.get(name);
+        ctr.reloadMainData();
+    }
+
     @FXML void handleChangeToModifyRole(){
+        clearLastScreenData();
+        lastLoaded = Main.ModifyRoleNPrivileges;
         this.loadScreen(Main.ModifyRoleNPrivileges, Main.ModifyRoleNPrivilegesFile);
         this.setScreen(Main.ModifyRoleNPrivileges);
+        setLeftStatus("Modificar Roll");
     }
 
     @FXML
     void changeTOInfoScreen() {
+        clearLastScreenData();
+        lastLoaded = Main.screen2ID;
         this.loadScreen(Main.screen2ID, Main.screen2File);
+        reloadMainData(Main.screen2ID);
         this.setScreen(Main.screen2ID);
+        this.setLeftStatus("Información");
     }
 
     @FXML
     void createUserWindow() {
+        clearLastScreenData();
+        lastLoaded = Main.creteUserWindow;
         this.loadScreen(Main.creteUserWindow, Main.getCreteUserWindowFile);
+        reloadMainData(Main.creteUserWindow);
         this.setScreen(Main.creteUserWindow);
+        this.setLeftStatus("Crear Usuario");
     }
 
     @FXML
     void changeTORoleNPrivilege() {
+        clearLastScreenData();
+        lastLoaded = Main.RoleNPrivileges;
         this.loadScreen(Main.RoleNPrivileges, Main.RoleNPrivilegesFile);
+        reloadMainData(Main.RoleNPrivileges);
         this.setScreen(Main.RoleNPrivileges);
+        this.setLeftStatus("Crear Role");
     }
 
     @FXML
     void changeTOModifyUser() {
+        clearLastScreenData();
+        lastLoaded = Main.modifyUserWindow;
         this.loadScreen(Main.modifyUserWindow, Main.modifyUserFile);
+        reloadMainData(Main.modifyUserWindow);
         this.setScreen(Main.modifyUserWindow);
+        this.setLeftStatus("Modificar Usuario");
     }
 
     @FXML
     void close() {
+        this.setLeftStatus("Cerrando");
         try {
             User.end();
             DBA_Roles.end();
