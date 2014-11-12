@@ -119,6 +119,9 @@ public class CreateUser implements Initializable, ControlledScreen {
         }
         TableSpace tbs = CMB_TableSpace.getSelectionModel().getSelectedItem();
         TableSpace tmptbs = CMB_TempTBS.getSelectionModel().getSelectedItem();
+        Query.profileUnlimited();
+        Query.profile30days();
+        Query.profile90days();
         if (tbs == null || tmptbs == null) {
             Dialogs.create().message("Debe Seleccionar los TableSpaces").title("Error").showError();
             return;
