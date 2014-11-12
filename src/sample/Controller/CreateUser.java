@@ -14,8 +14,10 @@ import sample.Model.access.tablespace.TableSpaceAccess;
 import sample.Model.entities.*;
 import sample.ScreensController;
 
+import javax.management.Query;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,8 @@ public class CreateUser implements Initializable, ControlledScreen {
     TextField TXT_on;
     @FXML
     ComboBox<String> CMB_permisos;
+    @FXML
+    ComboBox<String> ex_pass;
     @FXML
     ComboBox<TableSpace> CMB_TableSpace;
     @FXML
@@ -54,6 +58,7 @@ public class CreateUser implements Initializable, ControlledScreen {
     @Override
     public void clearData() {
         this.CMB_permisos.getSelectionModel().clearSelection();
+        this.ex_pass.getSelectionModel().clearSelection();
         this.CMB_TableSpace.getSelectionModel().clearSelection();
         this.CMB_TempTBS.getSelectionModel().clearSelection();
         this.TXT_cuota.setText("");
@@ -73,9 +78,11 @@ public class CreateUser implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> cmb_items = FXCollections.observableArrayList("System", "Objects");
+        ObservableList<String> exp_items = FXCollections.observableArrayList("Unlimited", "30 days","90 days");
         CMB_TableSpace.setItems(FXCollections.observableArrayList(TableSpaceAccess.retrieveTableSpaces().stream().filter(t -> !t.IsTemporary()).collect(Collectors.toList())));
         CMB_TempTBS.setItems(FXCollections.observableArrayList(TableSpaceAccess.tempList()));
         CMB_permisos.setItems(cmb_items);
+        ex_pass.setItems(exp_items);
         LV_roles.getItems().addAll(PlainDBARole.retrieveRoles());
     }
 
@@ -120,6 +127,18 @@ public class CreateUser implements Initializable, ControlledScreen {
             Dialogs.create().message("Error No Se ha creado el Usuario").title("Error").showError();
             return;
         } else {
+            String sinex= "SinExp";
+            String day30= "days30";
+            String day90= "days90";
+            if (ex_pass.getSelectionModel().getSelectedIndex() == 0) {
+                Query.modiPerfil(TXT_name.getText().trim(),sinex);
+            }
+            else  if (ex_pass.getSelectionModel().getSelectedIndex() == 1) {
+                Query.modiPerfil(TXT_name.getText().trim(),day30);
+            }
+            else{
+                Query.modiPerfil(TXT_name.getText().trim(),day90);
+            }
             Dialogs.create().message("Se ha creado el Usuario").title("Exito").showInformation();
             u = UserAccess.getByName(TXT_name.getText());
             if (u == null)

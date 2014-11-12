@@ -23,8 +23,100 @@ public class Query {
         connection = ORCConnection.Instance().getOrcConnection();
     }
 
+    public static boolean profileUnlimited(){
+        try {
+            String sql = "CREATE PROFILE 'SinExp' LIMIT" +
+                    "SESSIONS_PER_USER UNLIMITED" +
+                    "CPU_PER_SESSION UNLIMITED" +
+                    "CPU_PER_CALL UNLIMITED" +
+                    "CONNECT_TIME UNLIMITED" +
+                    "IDLE_TIME UNLIMITED" +
+                    "LOGICAL_READS_PER_SESSION UNLIMITED" +
+                    "LOGICAL_READS_PER_CALL UNLIMITED" +
+                    "COMPOSITE_LIMIT UNLIMITED" +
+                    "PRIVATE_SGA UNLIMITED" +
+                    "FAILED_LOGIN_ATTEMPTS 10" +
+                    "PASSWORD_LIFE_TIME UNLIMITED" +
+                    "PASSWORD_REUSE_TIME UNLIMITED" +
+                    "PASSWORD_REUSE_MAX UNLIMITED" +
+                    "PASSWORD_LOCK_TIME 1" +
+                    "PASSWORD_GRACE_TIME 7" +
+                    "PASSWORD_VERIFY_FUNCTION NULL";
+            pps = connection.prepareStatement(sql);
+            int i = pps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean profile30days(){
+        try {
+            String sql = "CREATE PROFILE 'days30' LIMIT" +
+                    "SESSIONS_PER_USER UNLIMITED" +
+                    "CPU_PER_SESSION UNLIMITED" +
+                    "CPU_PER_CALL UNLIMITED" +
+                    "CONNECT_TIME UNLIMITED" +
+                    "IDLE_TIME UNLIMITED" +
+                    "LOGICAL_READS_PER_SESSION UNLIMITED" +
+                    "LOGICAL_READS_PER_CALL UNLIMITED" +
+                    "COMPOSITE_LIMIT UNLIMITED" +
+                    "PRIVATE_SGA UNLIMITED" +
+                    "FAILED_LOGIN_ATTEMPTS 10" +
+                    "PASSWORD_LIFE_TIME 30" +
+                    "PASSWORD_REUSE_TIME UNLIMITED" +
+                    "PASSWORD_REUSE_MAX UNLIMITED" +
+                    "PASSWORD_LOCK_TIME 1" +
+                    "PASSWORD_GRACE_TIME 7" +
+                    "PASSWORD_VERIFY_FUNCTION NULL";
+            pps = connection.prepareStatement(sql);
+            int i = pps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean profile90days(){
+        try {
+            String sql = "CREATE PROFILE 'days90' LIMIT" +
+                    "SESSIONS_PER_USER UNLIMITED" +
+                    "CPU_PER_SESSION UNLIMITED" +
+                    "CPU_PER_CALL UNLIMITED" +
+                    "CONNECT_TIME UNLIMITED" +
+                    "IDLE_TIME UNLIMITED" +
+                    "LOGICAL_READS_PER_SESSION UNLIMITED" +
+                    "LOGICAL_READS_PER_CALL UNLIMITED" +
+                    "COMPOSITE_LIMIT UNLIMITED" +
+                    "PRIVATE_SGA UNLIMITED" +
+                    "FAILED_LOGIN_ATTEMPTS 10" +
+                    "PASSWORD_LIFE_TIME 90" +
+                    "PASSWORD_REUSE_TIME UNLIMITED" +
+                    "PASSWORD_REUSE_MAX UNLIMITED" +
+                    "PASSWORD_LOCK_TIME 1" +
+                    "PASSWORD_GRACE_TIME 7" +
+                    "PASSWORD_VERIFY_FUNCTION NULL";
+            pps = connection.prepareStatement(sql);
+            int i = pps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-
+    public static boolean modiPerfil(String user, String perfil){
+        try{
+            String sql = "ALTER USER"+user+"PROFILE"+perfil;
+            pps = connection.prepareStatement(sql);
+            int i = pps.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean crearUsuario(String user, String pass, String tspace,String tmptbs, String quota) {
         try {
             String sql = "create user " + user + " identified by " + pass + " default tablespace " + tspace + " quota " + quota +" ON "+ tspace+ " TEMPORARY TABLESPACE "+ tmptbs;
